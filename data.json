@@ -1,0 +1,1605 @@
+{
+ "Situationen": [
+  {
+   "ID": "gewerbeparkkarte",
+   "Titel": "Wo darf ich mit der Gewerbeparkkarte parkieren?",
+   "Kurztext": "Blaue Zone, Parkuhr, Parkverbot: was gilt beim Kunden, was nicht.",
+   "Branchen": "Handwerk & Bau, Gastro",
+   "Suchbegriffe": "parkieren parkkarte gewerbeparkkarte blaue zone parkuhr parkverbot halteverbot handwerker auto lieferwagen fahrzeug catering monteur",
+   "Kurze Antwort": "Beim Arbeitseinsatz beim Kunden: in allen blauen Zonen, auf Parkplätzen mit mindestens 90 Minuten Parkdauer (ohne Parkuhr-Gebühr) und im Parkverbot bis 4 Stunden. Vor dem eigenen Firmenstandort gilt sie nicht.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "ja",
+   "Reihenfolge": 1,
+   "Icon": "auto"
+  },
+  {
+   "ID": "baubewilligung",
+   "Titel": "Brauche ich eine Baubewilligung?",
+   "Kurztext": "Frei, melden oder bewilligen – der Check sagt es dir in 2 Klicks.",
+   "Branchen": "Gastro, Handwerk & Bau, Detailhandel",
+   "Suchbegriffe": "baubewilligung baugesuch baubegehren bauen umbau umnutzung meldeverfahren bewilligungsfrei solar wärmepumpe schild fassade fenster dach zaun anbau neubau bauinspektorat bgi",
+   "Kurze Antwort": "Es gibt drei Stufen: bewilligungsfrei, Meldeverfahren (gratis, 2 Wochen vorher) oder Baubewilligung (Baubegehren online). Welche gilt, hängt vom Vorhaben ab und davon, ob das Haus in einer Schutzzone steht.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 2,
+   "Icon": "haus"
+  },
+  {
+   "ID": "veranstaltungen",
+   "Titel": "Veranstaltung im öffentlichen Raum",
+   "Kurztext": "Geschäftsfeier, Fest, Markt oder Festival auf Strasse und Platz – was du brauchst.",
+   "Branchen": "Gastro, Detailhandel, Handwerk & Bau",
+   "Suchbegriffe": "veranstaltung event fest festival anlass markt geschäftsfeier eröffnung jubiläum apéro strassenfest quartierfest allmend platz strasse zelt bühne festwirtschaft gelegenheitswirtschaft essen getränke verkaufen musik lärm",
+   "Kurze Antwort": "Für jede Nutzung von Strasse oder Platz brauchst du eine Bewilligung der Allmendverwaltung. Wie viel Aufwand das ist, hängt von der Art des Anlasses ab. Prüfe zuerst im Belegungsplan, ob der Ort frei ist.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 3,
+   "Icon": "zelt"
+  },
+  {
+   "ID": "notfall",
+   "Titel": "Notfall: sofort in die Innenstadt",
+   "Kurztext": "Wasserrohrbruch, stehender Lift – Notfallbewilligung für die Zufahrt per Telefon.",
+   "Branchen": "Handwerk & Bau, Gastro, Detailhandel",
+   "Suchbegriffe": "notfall notfallbewilligung notfallzufahrt zufahrt innenstadt poller kernzone dringend sofort wasserrohrbruch rohrbruch lift fahrstuhl pikett kantonspolizei",
+   "Kurze Antwort": "Bei einem echten Notfall erteilt die Kantonspolizei die Kurzbewilligung für die Zufahrt in die Innenstadt telefonisch: +41 61 208 01 46. Ist es kein Notfall, beantragst du die Kurzbewilligung normal über das Online-Formular.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 4,
+   "Icon": "notfall"
+  },
+  {
+   "ID": "baustelle-entschaedigung",
+   "Titel": "Baustelle vor dem Geschäft: Entschädigung verlangen",
+   "Kurztext": "Umsatz bricht ein wegen Strassenbau? Was realistisch ist und wie du vorgehst.",
+   "Branchen": "Gastro, Handwerk & Bau, Detailhandel",
+   "Suchbegriffe": "entschädigung entschaedigung entschädigungsbegehren baustelle strassenbau umsatz umsatzeinbusse einbusse sperrung zufahrt lärm staub schaden kompensation tram gewinn",
+   "Kurze Antwort": "Baustellen des Kantons muss man grundsätzlich ohne Entschädigung dulden. Eine Entschädigung gibt es nur ausnahmsweise: bei übermässigen Auswirkungen, belegter erheblicher Umsatzeinbusse und meist mehreren Monaten Beeinträchtigung. Wichtig ist: ab dem ersten Tag dokumentieren.",
+   "Achtung-Hinweis": "Auf der Projektseite zur Clarastrasse schreibt der Kanton, dass er keine Entschädigungen für Bauarbeiten auf Allmend zahlt. Das Infoblatt lässt Ansprüche nur bei übermässigen Auswirkungen zu. Rechne also mit einer hohen Hürde. Ein Unterstützungsfonds für baustellengeplagte Betriebe (Motion 25.5394) ist politisch hängig; die Regierung lehnt ihn ab.",
+   "Meistgefragt": "",
+   "Reihenfolge": 5,
+   "Icon": "baustelle"
+  },
+  {
+   "ID": "zufahrt-innenstadt",
+   "Titel": "In die Innenstadt liefern oder zufahren",
+   "Kurztext": "Güterumschlag-Zeiten, Poller, Kurz- und Dauerbewilligung.",
+   "Branchen": "Detailhandel, Gastro, Handwerk & Bau",
+   "Suchbegriffe": "innenstadt zufahrt liefern lieferung poller freie strasse spalenberg güterumschlag kernzone bewilligung fahren",
+   "Kurze Antwort": "Mo–Sa von 05:00 bis 11:00 darfst du ohne Bewilligung in die Kernzone liefern. Ausserhalb dieser Zeit brauchst du eine Kurz- oder Dauerbewilligung, damit die Poller sinken.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 6,
+   "Icon": "lieferwagen"
+  },
+  {
+   "ID": "restaurant-eroeffnen",
+   "Titel": "Ein Café oder Restaurant eröffnen",
+   "Kurztext": "Betriebsbewilligung, Baubewilligung, Lebensmittel-Meldung – in dieser Reihenfolge.",
+   "Branchen": "Gastro",
+   "Suchbegriffe": "restaurant café cafe bar beiz eröffnen wirtepatent betriebsbewilligung gastgewerbe take-away takeaway bistro übernehmen",
+   "Kurze Antwort": "Du brauchst eine persönliche Betriebsbewilligung, meistens eine Baubewilligung für den Umbau und eine Meldung ans Kantonslabor. Vor der Bewilligung darfst du nicht eröffnen.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 7,
+   "Icon": "kaffee"
+  },
+  {
+   "ID": "boulevard",
+   "Titel": "Tische und Stühle draussen (Boulevard)",
+   "Kurztext": "Zwei Bewilligungen nacheinander: Bau, dann Allmend.",
+   "Branchen": "Gastro",
+   "Suchbegriffe": "boulevard aussenbewirtung terrasse tische stühle draussen trottoir gartenbeiz sommer",
+   "Kurze Antwort": "Für eine neue Boulevardfläche brauchst du zuerst eine Baubewilligung, danach eine Nutzungsbewilligung der Allmendverwaltung.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 8,
+   "Icon": "schirm"
+  },
+  {
+   "ID": "mulde-geruest",
+   "Titel": "Mulde, Gerüst oder Container auf die Strasse stellen",
+   "Kurztext": "Bis 10 m² und 20 Tage reicht eine Meldung.",
+   "Branchen": "Handwerk & Bau",
+   "Suchbegriffe": "mulde gerüst container baustelle bauinstallation kran toilette strasse allmend umbau abfall schutt",
+   "Kurze Antwort": "Kleine Installationen (bis 10 m², max. 20 Tage) musst du nur melden. Alles Grössere braucht eine Bewilligung: Mulden und Gerüste mindestens 2 Wochen, Kräne mindestens 3 Monate im Voraus.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 9,
+   "Icon": "mulde"
+  },
+  {
+   "ID": "reklame",
+   "Titel": "Firmenschild, Reklamereiter oder Warenauslage",
+   "Kurztext": "Am Haus: Bauinspektorat. Auf dem Trottoir: Allmendverwaltung.",
+   "Branchen": "Detailhandel, Gastro, Handwerk & Bau",
+   "Suchbegriffe": "schild firmenschild reklame werbung beschriftung leuchtreklame reklamereiter kundenstopper aufsteller warenauslage schaufenster trottoir",
+   "Kurze Antwort": "Ein unbeleuchtetes Firmenschild bis 0,5 m² ist meist bewilligungsfrei (in Schutzzonen meldepflichtig). Ein Reklamereiter oder Waren auf dem Trottoir brauchen eine kostenpflichtige Bewilligung der Allmendverwaltung.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 10,
+   "Icon": "schild"
+  },
+  {
+   "ID": "oeffnungszeiten",
+   "Titel": "Öffnungszeiten und Sonntagsverkauf",
+   "Kurztext": "Wann der Laden offen sein darf, und die zwei freien Advents-Sonntage.",
+   "Branchen": "Detailhandel",
+   "Suchbegriffe": "öffnungszeiten ladenöffnung sonntag sonntagsverkauf abendverkauf samstag feiertag advent laden geschäft",
+   "Kurze Antwort": "Mo–Fr 06:00–20:00, Samstag und vor Feiertagen 06:00–18:00. Sonntags ist grundsätzlich zu – ausser zwei Advents-Sonntage (13–18 Uhr) und Sonderfälle mit Bewilligung.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 11,
+   "Icon": "uhr"
+  },
+  {
+   "ID": "foodtruck",
+   "Titel": "Foodtruck oder Verkaufsstand",
+   "Kurztext": "Bewerbung pro Standort, dann Bau- und Nutzungsgesuch.",
+   "Branchen": "Gastro, Detailhandel",
+   "Suchbegriffe": "foodtruck food truck verkaufsstand stand marktstand markt buvette glace ape foodbike saison",
+   "Kurze Antwort": "Feste Standorte werden ausgeschrieben: Du bewirbst dich mit Konzept, wirst ausgewählt und stellst dann ein Bau- und Nutzungsgesuch. Bis zur Bewilligung kann es 3 Monate dauern. Stand 20.11.2026: Zurzeit hat es keine freien Standorte.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 12,
+   "Icon": "stand"
+  },
+  {
+   "ID": "lebensmittel-melden",
+   "Titel": "Mit Lebensmitteln arbeiten: Betrieb melden",
+   "Kurztext": "Gilt auch für Lager, Transport, Import – und Tattoo-Studios.",
+   "Branchen": "Gastro, Detailhandel",
+   "Suchbegriffe": "lebensmittel kantonslabor meldepflicht hygiene selbstkontrolle bäckerei metzgerei laden import catering tattoo",
+   "Kurze Antwort": "Wer mit Lebensmitteln arbeitet (verkaufen, herstellen, lagern, transportieren), muss den Betrieb beim Kantonalen Laboratorium melden. Änderungen innert 14 Tagen.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 13,
+   "Icon": "besteck"
+  },
+  {
+   "ID": "firma-gruenden",
+   "Titel": "Firma gründen oder nach Basel ziehen",
+   "Kurztext": "Handelsregister, Bürgschaften, und wen du zuerst anrufst.",
+   "Branchen": "Gastro, Handwerk & Bau, Detailhandel",
+   "Suchbegriffe": "gründen gründung firma handelsregister gmbh ag einzelfirma selbständig startup kredit bürgschaft umzug",
+   "Kurze Antwort": "Ruf zuerst den Kontaktpunkt für Unternehmen an – er sagt dir, welche Ämter du brauchst. Eintragen lässt du dich beim Handelsregisteramt.",
+   "Achtung-Hinweis": "",
+   "Meistgefragt": "",
+   "Reihenfolge": 14,
+   "Icon": "koffer"
+  }
+ ],
+ "Schritte": [
+  {
+   "Situation": "gewerbeparkkarte",
+   "Nr": 1,
+   "Schritt": "Prüfen, ob du berechtigt bist",
+   "Erklärung": "Handwerk, Service-Montage, Catering: du brauchst schweres Werkzeug oder Material an wechselnden Orten. Fahrzeuge, die nicht für den Arbeitseinsatz gebraucht werden, haben keinen Anspruch."
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Nr": 2,
+   "Schritt": "Online beantragen",
+   "Erklärung": "Lieferwagen und Kombis, die auf einen Gewerbebetrieb registriert sind, gelten als handwerkertypisch. Bei anderen Fahrzeugen Fotos des beladenen Fahrzeugs beilegen."
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Nr": 3,
+   "Schritt": "Bestätigung abwarten",
+   "Erklärung": "Die Karte wird direkt nach dem Online-Formular ausgestellt, ab deinem Wunschdatum. Nutzen darfst du sie erst, wenn die Bestätigung per Mail (sonst A-Post) da ist oder die Karte in der App «ParkSmart Basel» erscheint."
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Nr": 4,
+   "Schritt": "Nichts hinter die Scheibe",
+   "Erklärung": "Die kantonale Karte ist digital. Fahrzeug gut sichtbar mit dem Firmennamen beschriften."
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Nr": 5,
+   "Schritt": "Ersatzfahrzeug?",
+   "Erklärung": "Gesuch Ersatzfahrzeug per E-Mail an die Motorfahrzeugkontrolle. Der Ausdruck gilt als Bewilligung und muss gut sichtbar hinter die Frontscheibe. Länger als 10 Tage: Bewilligung auf das Ersatzfahrzeug umschreiben lassen."
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Nr": 6,
+   "Schritt": "Karte verloren?",
+   "Erklärung": "Kantonale Karte: nichts tun, sie ist digital. Regionale Karte: Duplikat mit Verlusterklärung beantragen."
+  },
+  {
+   "Situation": "notfall",
+   "Nr": 1,
+   "Schritt": "Ist es ein Notfall?",
+   "Erklärung": "Ein plötzliches, unvorhersehbares Ereignis, bei dem sofort gehandelt werden muss – z.B. Wasserrohrbruch oder Stillstand eines Lifts."
+  },
+  {
+   "Situation": "notfall",
+   "Nr": 2,
+   "Schritt": "Ja: Kantonspolizei anrufen",
+   "Erklärung": "Telefon +41 61 208 01 46. Die Kurzbewilligung wird telefonisch erteilt."
+  },
+  {
+   "Situation": "notfall",
+   "Nr": 3,
+   "Schritt": "Nein: Online-Formular",
+   "Erklärung": "Dann gilt die normale Kurzbewilligung über das eFormular (CHF 20). Ohne Bewilligung darfst du Mo–Sa 05–11 Uhr liefern."
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Nr": 1,
+   "Schritt": "Ort prüfen",
+   "Erklärung": "Im [Belegungsplan](https://www.bs.ch/apps/belegungen) nachsehen, ob Strasse oder Platz zum gewünschten Datum frei ist (keine Baustelle, kein anderer Anlass)."
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Nr": 2,
+   "Schritt": "Art des Anlasses wählen",
+   "Erklärung": "Geschäftsfeier, Veranstaltung oder Strassenfest – die Fristen sind verschieden (siehe oben)."
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Nr": 3,
+   "Schritt": "Gesuch online einreichen",
+   "Erklärung": "Mit dem Formular «Veranstaltung auf öffentlichem Grund». Den Ort trägst du auf dem Stadtplan ein."
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Nr": 4,
+   "Schritt": "Frühzeitig nachfragen",
+   "Erklärung": "Bei grösseren Anlässen lohnt sich eine Vorabklärung mit der Allmendverwaltung."
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Nr": 1,
+   "Schritt": "Ab Tag 1 dokumentieren",
+   "Erklärung": "Umsatz pro Monat im Vergleich zu den Vorjahren, Fotos der Baustelle und des Zugangs, Daten von Sperrungen, Lärm und Staub, Rückmeldungen von Kundschaft."
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Nr": 2,
+   "Schritt": "Ehrlich prüfen, ob es reicht",
+   "Erklärung": "Einbussen bis ca. 20–30 % gelten in der Regel als zumutbar. Sperrungen unter 3–6 Monaten führen grundsätzlich zu keiner Entschädigung. Der Schaden muss nachweislich von der Baustelle kommen."
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Nr": 3,
+   "Schritt": "Sofort-Entlastung holen",
+   "Erklärung": "Allmendgebühren (z.B. Boulevard, Reklamereiter): Erlass beantragen, der Kanton ist hier laut eigener Aussage grosszügig. Mietzinsreduktion: beim Vermieter verlangen, nicht beim Kanton."
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Nr": 4,
+   "Schritt": "Begehren schriftlich an die Projektleitung",
+   "Erklärung": "Adressiere das Begehren an den Projektleiter oder die Projektleiterin der Baustelle, mit allen Belegen und Zahlen. Name und Kontakt findest du oft auf der Projektseite des Kantons (bs.ch → Bauprojekte) oder auf der Info-Tafel vor Ort."
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Nr": 5,
+   "Schritt": "Hilfe holen",
+   "Erklärung": "Der Gewerbeverband Basel-Stadt begleitet betroffene Betriebe bei der Einreichung."
+  },
+  {
+   "Situation": "baubewilligung",
+   "Nr": 1,
+   "Schritt": "Bau-Check machen",
+   "Erklärung": "Wähle oben, was du planst. Du siehst sofort, welche Stufe gilt."
+  },
+  {
+   "Situation": "baubewilligung",
+   "Nr": 2,
+   "Schritt": "Schutzzone klären",
+   "Erklärung": "Steht das Gebäude in einer Schutzzone oder ist es ein Denkmal, gelten strengere Regeln. Im Zweifel beim BGI fragen."
+  },
+  {
+   "Situation": "baubewilligung",
+   "Nr": 3,
+   "Schritt": "Melden oder Baubegehren einreichen",
+   "Erklärung": "Meldung: Formular, mindestens 2 Wochen vor Arbeitsbeginn. Baubegehren: online erfassen, Belegexemplar ausdrucken, zweifach unterschreiben und mit den Unterlagen einreichen. Ab 1.1.2027 nur noch digital."
+  },
+  {
+   "Situation": "baubewilligung",
+   "Nr": 4,
+   "Schritt": "Erst dann loslegen",
+   "Erklärung": "Bei Bewilligungspflicht erst bauen, wenn der Entscheid da ist. Nachbarn können Einsprache erheben."
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Nr": 1,
+   "Schritt": "Zuerst: geht es in der Güterumschlag-Zeit?",
+   "Erklärung": "Mo–Sa 05:00–11:00 ist Liefern ohne Bewilligung erlaubt."
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Nr": 2,
+   "Schritt": "Betrieb in der Innenstadt?",
+   "Erklärung": "Für Firmen in der Kernzone gilt zusätzlich: Güterumschlag Mo–Fr 20–11 Uhr (bis zum Folgetag) und von Samstag 20 Uhr bis Montag 11 Uhr ohne Bewilligung."
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Nr": 3,
+   "Schritt": "Einzelfall: Kurzbewilligung",
+   "Erklärung": "Wenn es dringend ist oder nicht im Zeitfenster geht. Echter Notfall (z.B. Wasserrohrbruch): telefonisch bei der Kantonspolizei, +41 61 208 01 46."
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Nr": 4,
+   "Schritt": "Regelmässig: Dauerbewilligung",
+   "Erklärung": "Für Firmen in der Kernzone mit eigenem Parkplatz oder für regelmässige Lieferung rasch verderblicher Waren."
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Nr": 5,
+   "Schritt": "Oft (über 30× pro Jahr): Kundenkonto",
+   "Erklärung": "Dann kosten Kurzbewilligungen weniger."
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Nr": 1,
+   "Schritt": "Brauchst du überhaupt eine Bewilligung?",
+   "Erklärung": "Nur Take-away (Essen und Getränke, auch Alkohol, nur zum Mitnehmen): keine Gastro-Bewilligung. Bagatellbetrieb ohne Alkohol, max. 20 m² Konsumfläche und max. 10 Plätze innen und aussen: keine Betriebsbewilligung. In beiden Fällen klärt die Abteilung Baubewilligungen, ob es ein Baugesuch braucht."
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Nr": 2,
+   "Schritt": "Baubewilligung klären",
+   "Erklärung": "Für Einrichtung oder Umbau eines Gastrobetriebs ist meist eine Baubewilligung nötig."
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Nr": 3,
+   "Schritt": "Betriebsbewilligung beantragen",
+   "Erklärung": "Nur mit gastgewerblichem Fähigkeitsausweis (Wirtepatent). Unterlagen vollständig einreichen – unvollständige Gesuche werden kostenpflichtig zurückgewiesen."
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Nr": 4,
+   "Schritt": "Lebensmittelbetrieb melden",
+   "Erklärung": "Meldeformular mit Selbstkontrollkonzept ans Kantonale Laboratorium."
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Nr": 5,
+   "Schritt": "Erst dann eröffnen",
+   "Erklärung": "Die Bewilligung ist persönlich. Wechselt die verantwortliche Person, braucht es eine neue."
+  },
+  {
+   "Situation": "boulevard",
+   "Nr": 1,
+   "Schritt": "Baubewilligung",
+   "Erklärung": "Beim Bau- und Gastgewerbeinspektorat – für eine neue Aussenbewirtung, aber auch wenn du die Fläche vergrösserst oder die Aussen-Öffnungszeiten verlängerst."
+  },
+  {
+   "Situation": "boulevard",
+   "Nr": 2,
+   "Schritt": "Nutzungsbewilligung Allmend",
+   "Erklärung": "Mit bewilligtem Situationsplan (1:200), Kopie des Bauentscheids und Angaben zur Möblierung."
+  },
+  {
+   "Situation": "boulevard",
+   "Nr": 3,
+   "Schritt": "Auflagen einhalten",
+   "Erklärung": "Nachtruhe ab 23 Uhr, keine Beschallung, keine Zäune, Sichtschutzwände oder Zelte."
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Nr": 1,
+   "Schritt": "Grösse und Dauer abschätzen",
+   "Erklärung": "Bis 10 m² und 20 Tage: Meldung mit Formular «Kleinstnutzung», spätestens 10 Arbeitstage vorher, erstmalig gratis."
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Nr": 2,
+   "Schritt": "Sonst: Gesuch einreichen",
+   "Erklärung": "Mulden, Gerüste, Umschlagplätze: mind. 2 Wochen vorher. Kräne, Containerbühnen: mind. 3 Monate vorher."
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Nr": 3,
+   "Schritt": "Richtig aufstellen",
+   "Erklärung": "Innerhalb der Parkfeld-Markierung, abgeschrankt, nachts beleuchtet, Mulden auf Holz. Du haftest für Schäden."
+  },
+  {
+   "Situation": "reklame",
+   "Nr": 1,
+   "Schritt": "Schild am Gebäude",
+   "Erklärung": "Unbeleuchtet bis 0,5 m² pro Betrieb: frei, in Schon- und Schutzzonen meldepflichtig. Folierung innen am Schaufenster: frei. Alles andere (beleuchtet, grösser): Reklamebegehren über das Online-Baubegehren."
+  },
+  {
+   "Situation": "reklame",
+   "Nr": 2,
+   "Schritt": "Reklamereiter auf dem Trottoir",
+   "Erklärung": "Max. 60 × 85 cm, Eingänge und Schaufenster frei lassen. Wird nur mit Begründung bewilligt, z.B. Geschäft ohne Erdgeschoss oder ohne Schaufenster."
+  },
+  {
+   "Situation": "reklame",
+   "Nr": 3,
+   "Schritt": "Warenauslage",
+   "Erklärung": "Ebenfalls Gesuch bei der Allmendverwaltung."
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Nr": 1,
+   "Schritt": "Normale Zeiten",
+   "Erklärung": "Mo–Fr 06–20 Uhr, Sa und Vorabend von Feiertagen 06–18 Uhr. Läden in Bahnhöfen: täglich 06–22 Uhr."
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Nr": 2,
+   "Schritt": "Ausnahmen ohne Bewilligung",
+   "Erklärung": "Bäckereien, Blumenläden, reine Familienbetriebe und Bahnhofsläden haben Sonderregeln."
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Nr": 3,
+   "Schritt": "Advents-Sonntage",
+   "Erklärung": "Zwei pro Jahr, 13–18 Uhr, ohne Bewilligung, Personal erlaubt (keine Jugendlichen unter 18). Daten stehen jeweils im Kantonsblatt."
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Nr": 4,
+   "Schritt": "Alles andere",
+   "Erklärung": "Ausnahmebewilligung beim Amt für Wirtschaft und Arbeit, nur bei besonderem Bedarf."
+  },
+  {
+   "Situation": "foodtruck",
+   "Nr": 1,
+   "Schritt": "Bewerben",
+   "Erklärung": "Bewerbungsformular ausfüllen und unterschreiben, mit Betriebs-/Gastrokonzept für einen konkreten Standort per E-Mail an av.ausschreibungen@bs.ch. Pro Bewerbung wird nur ein Standort vergeben."
+  },
+  {
+   "Situation": "foodtruck",
+   "Nr": 2,
+   "Schritt": "Bau- und Nutzungsgesuch",
+   "Erklärung": "Nach der Auswahl. Dauer bis 3 Monate."
+  },
+  {
+   "Situation": "foodtruck",
+   "Nr": 3,
+   "Schritt": "Ggf. Gastro-Bewilligung",
+   "Erklärung": "Wenn vor Ort gegessen wird, je nach Umfang Betriebsbewilligung nötig."
+  },
+  {
+   "Situation": "foodtruck",
+   "Nr": 4,
+   "Schritt": "Märkte und Events",
+   "Erklärung": "Läuft separat über die Regeln für Messen und Märkte."
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Nr": 1,
+   "Schritt": "Formular holen",
+   "Erklärung": "Meldeformular für Lebensmittelbetriebe, gratis."
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Nr": 2,
+   "Schritt": "Selbstkontrollkonzept beilegen",
+   "Erklärung": "Dazu Produktionsmengen und Verkaufskanäle."
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Nr": 3,
+   "Schritt": "Einsenden",
+   "Erklärung": "Kantonales Laboratorium Basel-Stadt, Kannenfeldstrasse 2, 4056 Basel."
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Nr": 4,
+   "Schritt": "Änderungen melden",
+   "Erklärung": "Wesentliche Änderungen und Schliessung innert 14 Tagen."
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Nr": 1,
+   "Schritt": "Kontaktpunkt anrufen",
+   "Erklärung": "Zentrale Anlaufstelle des Kantons für alle Fragen an die Verwaltung."
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Nr": 2,
+   "Schritt": "Firmennamen prüfen",
+   "Erklärung": "Vorprüfung beim Handelsregisteramt empfohlen."
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Nr": 3,
+   "Schritt": "Anmelden",
+   "Erklärung": "Universal-Anmeldeformulare gratis auf der Seite des Handelsregisteramts."
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Nr": 4,
+   "Schritt": "Finanzierung",
+   "Erklärung": "Der Kanton unterstützt Bürgschaftsgenossenschaften (BG Mitte, BG SAFFA für Unternehmerinnen). Sie bürgen für Bankkredite."
+  }
+ ],
+ "Auf einen Blick": [
+  {
+   "Situation": "gewerbeparkkarte",
+   "Bezeichnung": "Kantonale Karte (nur Basel-Stadt)",
+   "Text": "Jahreskarte CHF 200 · Monatskarte CHF 35 für den ersten Monat, danach CHF 15 pro Monat · Änderung (z.B. Kontrollschild) CHF 20 · plus CHF 20 Bearbeitung pro Karte"
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Bezeichnung": "Regionale Karte (Basel-Stadt + Basel-Landschaft)",
+   "Text": "Nur als Jahreskarte CHF 250 · Änderung CHF 30"
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Bezeichnung": "Rückgabe",
+   "Text": "Kantonal: ganze, nicht genutzte Monate werden zurückerstattet, abzüglich CHF 20. Regional: keine Rückerstattung."
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Bezeichnung": "Wer stellt aus",
+   "Text": "Motorfahrzeugkontrolle der Kantonspolizei, Online-Formular"
+  },
+  {
+   "Situation": "notfall",
+   "Bezeichnung": "Telefon",
+   "Text": "+41 61 208 01 46 (Kantonspolizei, nur Notfälle)"
+  },
+  {
+   "Situation": "notfall",
+   "Bezeichnung": "Kein Notfall",
+   "Text": "Kurzbewilligung online, CHF 20"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Bezeichnung": "Zuständig",
+   "Text": "Allmendverwaltung, Tiefbauamt\nDufourstrasse 40/50, 4052 Basel\n+41 61 267 93 57 · bvdav@bs.ch"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Bezeichnung": "Fördergelder",
+   "Text": "Swisslos-Fonds (Kultur, Sport) · Stadtbelebungsfonds für Projekte in der Innenstadt (rund ein Drittel des Budgets aus Eigenleistung und Sponsoring)"
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Bezeichnung": "Formular",
+   "Text": "Keines – schriftliches Begehren mit Belegen"
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Bezeichnung": "An wen",
+   "Text": "Projektleiter/in der Baustelle"
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Bezeichnung": "Frist",
+   "Text": "Ansprüche verjähren in der Regel 10 Jahre nach Beginn der Immissionen"
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Bezeichnung": "Grundlage",
+   "Text": "Infoblatt «Entschädigungsansprüche bei Bauprojekten des Kantons», Stand September 2025"
+  },
+  {
+   "Situation": "baubewilligung",
+   "Bezeichnung": "Kosten",
+   "Text": "Meldung gratis · Baubewilligung nach Baukosten, bis CHF 10'000 Baukosten pauschal CHF 100"
+  },
+  {
+   "Situation": "baubewilligung",
+   "Bezeichnung": "Zuständig",
+   "Text": "Bau- und Gastgewerbeinspektorat (BGI)\nMünsterplatz 11, 4001 Basel\n+41 61 267 92 00 · bvdbgi@bs.ch"
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Bezeichnung": "Kosten",
+   "Text": "Kurzbewilligung CHF 20 · mit Kundenkonto CHF 5 · Dauerbewilligung CHF 100 (für ansässige Betriebe mit verderblicher Ware ohne eigenen Parkplatz gratis, max. 12 Monate)"
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Bezeichnung": "Wer stellt aus",
+   "Text": "Motorfahrzeugkontrolle der Kantonspolizei"
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Bezeichnung": "Kosten",
+   "Text": "Betriebsbewilligung CHF 600"
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Bezeichnung": "Dauer",
+   "Text": "Bei vollständigen Unterlagen ca. 1 Monat"
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Bezeichnung": "Zuständig",
+   "Text": "Bau- und Gastgewerbeinspektorat, Abt. Gastgewerbebewilligungen\n+41 61 267 70 26 · bvdbgi@bs.ch"
+  },
+  {
+   "Situation": "boulevard",
+   "Bezeichnung": "Kosten",
+   "Text": "Innenstadt CHF 80 pro m² und Jahr · ausserhalb der Innenstadt 25 % günstiger (siehe Gebührenzonenplan)"
+  },
+  {
+   "Situation": "boulevard",
+   "Bezeichnung": "Zuständig",
+   "Text": "Allmendverwaltung, Tiefbauamt\nDufourstrasse 40/50, 4052 Basel\n+41 61 267 93 57"
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Bezeichnung": "Kosten",
+   "Text": "Meldung bis 10 m² und 20 Tage: erstmalig gratis. Grössere Installationen: Gebühr nach Gebührenverordnung öffentlicher Raum (SG 724.910) – Betrag vorher bei der Allmendverwaltung erfragen"
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Bezeichnung": "Zuständig",
+   "Text": "Allmendverwaltung, Tiefbauamt\n+41 61 267 93 57"
+  },
+  {
+   "Situation": "reklame",
+   "Bezeichnung": "Kosten",
+   "Text": "Reklamereiter CHF 500 pro m² und Jahr · Warenauslage CHF 375 pro m² und Jahr · plus Bewilligungsgebühr CHF 100–1'500, je nach Aufwand"
+  },
+  {
+   "Situation": "reklame",
+   "Bezeichnung": "Zuständig",
+   "Text": "Schild: Bau- und Gastgewerbeinspektorat\nTrottoir: Allmendverwaltung, Tiefbauamt, +41 61 267 93 57"
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Bezeichnung": "Rechtsgrundlage",
+   "Text": "Ruhetags- und Ladenöffnungsgesetz (RLG, SG 811.100)"
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Bezeichnung": "Zuständig",
+   "Text": "Amt für Wirtschaft und Arbeit"
+  },
+  {
+   "Situation": "foodtruck",
+   "Bezeichnung": "Kosten",
+   "Text": "Feste Stände bis 12 m²: ca. CHF 3'700/Jahr (Zone II −25 %). Saisonal kann abweichen."
+  },
+  {
+   "Situation": "foodtruck",
+   "Bezeichnung": "Dauer der Bewilligung",
+   "Text": "Pro Saison, Nutzungsrecht 5 Jahre, max. 10 Jahre"
+  },
+  {
+   "Situation": "foodtruck",
+   "Bezeichnung": "Zuständig",
+   "Text": "Allmendverwaltung, Tiefbauamt, +41 61 267 93 57"
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Bezeichnung": "Kosten",
+   "Text": "Meldung gratis"
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Bezeichnung": "Zuständig",
+   "Text": "Kantonales Laboratorium, Lebensmittelinspektorat"
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Bezeichnung": "Kosten",
+   "Text": "Namens-Vorprüfung CHF 50 · Anmeldeformular erstellen lassen CHF 60"
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Bezeichnung": "Zuständig",
+   "Text": "Kontaktpunkt für Unternehmen (Amt für Wirtschaft und Arbeit)\n+41 61 267 66 99 · business@bs.ch"
+  }
+ ],
+ "Formulare und Links": [
+  {
+   "Situation": "gewerbeparkkarte",
+   "Art": "Formular auf Seite",
+   "Titel": "Gewerbeparkkarte online beantragen",
+   "URL": "https://www.bs.ch/themen/mobilitaet/fahren-und-parkieren/parkkarten/gewerbeparkkarte",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Art": "PDF-Formular",
+   "Titel": "Gesuch Gewerbeparkkarte",
+   "URL": "https://media.bs.ch/original_file/4b3b8206469c875075453238a6ed1e989c012a0a/mfk-gesuch-gewerbeparkkarte-2024.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Art": "PDF-Formular",
+   "Titel": "Gesuch Ersatzfahrzeug",
+   "URL": "https://media.bs.ch/original_file/27e72214620dc72f548f8deba2bba82f4c5fcf8c/mfk-ersatzfahrzeug-gpk-2024.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Art": "Offizielle Seite",
+   "Titel": "Gewerbeparkkarte (bs.ch)",
+   "URL": "https://www.bs.ch/themen/mobilitaet/fahren-und-parkieren/parkkarten/gewerbeparkkarte",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Art": "Offizielle Seite",
+   "Titel": "Benutzungsbestimmungen Parkkarten",
+   "URL": "https://www.bs.ch/themen/mobilitaet/fahren-und-parkieren/parkkarten/benutzungsbestimmungen-parkkarten",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "notfall",
+   "Art": "Online-Formular",
+   "Titel": "Zufahrtsbewilligung Innenstadt",
+   "URL": "https://formulare.bs.ch/mfk/zufahrtsbewilligung",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "notfall",
+   "Art": "Offizielle Seite",
+   "Titel": "Zufahrtsbewilligung Kernzone (Abschnitt Notfallbewilligung)",
+   "URL": "https://www.bs.ch/themen/mobilitaet/fahren-und-parkieren/zufahrtsbewilligungen/antrag-zufahrtsbewilligung-zur-kernzone-innenstadt",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "notfall",
+   "Art": "Offizielle Seite",
+   "Titel": "Zufahrt Innenstadt (bs.ch)",
+   "URL": "https://www.bs.ch/themen/mobilitaet/fahren-und-parkieren/zufahrt-innenstadt",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Online-Formular",
+   "Titel": "Gesuch Veranstaltung auf öffentlichem Grund",
+   "URL": "https://eservices.egov.bs.ch/e/503/p/001/veranstaltung-auf-oeffentlichem-grund",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Online-Formular",
+   "Titel": "Gesuch Veranstaltung auf öffentlichem Grund",
+   "URL": "https://eservices.egov.bs.ch/e/503/p/001/veranstaltung-auf-oeffentlichem-grund",
+   "Gehört zu Anlass-Art": "Geschäftsfeier vor dem Betrieb"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Online-Formular",
+   "Titel": "Gesuch Veranstaltung auf öffentlichem Grund",
+   "URL": "https://eservices.egov.bs.ch/e/503/p/001/veranstaltung-auf-oeffentlichem-grund",
+   "Gehört zu Anlass-Art": "Fest, Markt, Festival, Sportanlass"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "PDF-Formular",
+   "Titel": "Formular Abfallkonzept",
+   "URL": "https://media.bs.ch/original_file/8ccccc7f220e23c0ad7651a0c9ae86cc47cb70b3/formular-abfallkonzept-fuer-veranstaltungen-bs-2021-0.pdf",
+   "Gehört zu Anlass-Art": "Fest, Markt, Festival, Sportanlass"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "PDF-Formular",
+   "Titel": "Vorlage Sicherheitskonzept (Word)",
+   "URL": "https://media.bs.ch/original_file_download/4f876cbdcf79c782911fceca49d784a8ef1de291/vorlage-sicherheitskonzept-bei-veranstaltungen.docx",
+   "Gehört zu Anlass-Art": "Fest, Markt, Festival, Sportanlass"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Online-Formular",
+   "Titel": "Gesuch Veranstaltung auf öffentlichem Grund",
+   "URL": "https://eservices.egov.bs.ch/e/503/p/001/veranstaltung-auf-oeffentlichem-grund",
+   "Gehört zu Anlass-Art": "Essen und Getränke verkaufen"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "PDF-Formular",
+   "Titel": "Gelegenheits- und Festwirtschaft (privater Grund)",
+   "URL": "https://media.bs.ch/original_file/2195d9aafb8ffa9b32e073a297671eb612473a59/170-205-gelegenheits-und-festwirtschaft.pdf",
+   "Gehört zu Anlass-Art": "Essen und Getränke verkaufen"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Online-Formular",
+   "Titel": "Gesuch Veranstaltung auf öffentlichem Grund",
+   "URL": "https://eservices.egov.bs.ch/e/503/p/001/veranstaltung-auf-oeffentlichem-grund",
+   "Gehört zu Anlass-Art": "Anwohnerstrassenfest"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Online-Formular",
+   "Titel": "Meldung Kleinstnutzung Allmend (bis 10 m², 20 Tage)",
+   "URL": "https://formulare.bs.ch/tiefbauamt/kleinstnutzung-oeffentlicher-grund?ekonto=optional",
+   "Gehört zu Anlass-Art": "Anwohnerstrassenfest"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Offizielle Seite",
+   "Titel": "Veranstaltungen im öffentlichen Raum (bs.ch)",
+   "URL": "https://www.bs.ch/bvd/tiefbauamt/oeffentlichen-raum-nutzen/veranstaltungen-im-oeffentlichen-raum",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Offizielle Seite",
+   "Titel": "Belegungsplan: Wann was wo?",
+   "URL": "https://www.bs.ch/apps/belegungen",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Offizielle Seite",
+   "Titel": "Leitfaden Planung von Veranstaltungen (PDF)",
+   "URL": "https://media.bs.ch/original_file/2806a89e737235ee915a04fca005e95329a8cbb0/leitfaden-planung-von-veranstaltungen-1.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Offizielle Seite",
+   "Titel": "Allgemeine Auflagen für Veranstaltungen (PDF)",
+   "URL": "https://media.bs.ch/original_file/70f7db0c0a907514394806ba0f10261ed694a076/allgemeine-behoerdliche-auflagen-zu-veranstaltungen-1.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Offizielle Seite",
+   "Titel": "Kriterien für Gebührenerlass (PDF)",
+   "URL": "https://media.bs.ch/original_file/73de3a5c20e44ee607990b7c5d67ca8abba8c80f/kriterien-kosten-gebuehrenerlass-bei-veranstaltungen-0.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Offizielle Seite",
+   "Titel": "Richtlinie Anwohnerstrassenfeste (PDF)",
+   "URL": "https://media.bs.ch/original_file/8b885fcdb791e2489e7b767e86717bcf7aaaa726/richtlinie-anwohnerstrassenfeste-3.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Offizielle Seite",
+   "Titel": "Gelegenheits- und Festwirtschaft (bs.ch)",
+   "URL": "https://www.bs.ch/bvd/bgi/gastgewerbebewilligungen/gelegenheits-und-festwirtschaftsbewilligungen",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Art": "Infoblatt",
+   "Titel": "Infoblatt Entschädigungsansprüche",
+   "URL": "https://media.bs.ch/original_file/e2ee2b9fcc9e7a0e8ff325ea1e61fe827883e5a2/infoblatt-entschaedigungsansprueche-bei-bauprojekten-des-kan.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Art": "Offizielle Seite",
+   "Titel": "Baustellen Strassen & Gewässer (bs.ch)",
+   "URL": "https://www.bs.ch/bvd/tiefbauamt/baustellen",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Art": "Offizielle Seite",
+   "Titel": "Beispiel Projektseite Clarastrasse",
+   "URL": "https://www.bs.ch/bauprojekte/tiefbauprojekte/erneuerung-clarastrasse",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baustelle-entschaedigung",
+   "Art": "Offizielle Seite",
+   "Titel": "Gewerbeverband: Neues Infoblatt",
+   "URL": "https://gewerbe-basel.ch/entschaedigungsansprueche-neues-infoblatt/",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baubewilligung",
+   "Art": "Online-Formular",
+   "Titel": "Meldeformular «Meldepflichtige Bauten und Anlagen»",
+   "URL": "https://formulare.bs.ch/bgi/meldepflichtige-bauten-und-anlagen?ekonto=optional",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baubewilligung",
+   "Art": "Online-Formular",
+   "Titel": "Online-Baubegehren",
+   "URL": "https://jaxforms.cloud.bs.ch/formservice/services/rest/template/public/KTBS/de/index.html",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baubewilligung",
+   "Art": "Offizielle Seite",
+   "Titel": "Brauche ich eine Baubewilligung? (bs.ch)",
+   "URL": "https://www.bs.ch/themen/umwelt-und-bauen/bauen-im-kanton-basel-stadt/brauche-ich-eine-baubewilligung",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baubewilligung",
+   "Art": "Offizielle Seite",
+   "Titel": "Meldeverfahren",
+   "URL": "https://www.bs.ch/bvd/bgi/meldeverfahren",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baubewilligung",
+   "Art": "Offizielle Seite",
+   "Titel": "Baubegehren erfassen und einreichen",
+   "URL": "https://www.bs.ch/bvd/bgi/baubewilligungsverfahren/baubegehren-erfassen-und-einreichen",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baubewilligung",
+   "Art": "Offizielle Seite",
+   "Titel": "Kosten Baubewilligungsverfahren",
+   "URL": "https://www.bs.ch/bvd/bgi/baubewilligungsverfahren/kosten-baubewilligungsverfahren",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "baubewilligung",
+   "Art": "Offizielle Seite",
+   "Titel": "Merkblatt Heizsysteme / Wärmepumpen (PDF)",
+   "URL": "https://media.bs.ch/original_file/3c3f06c689e26da3e5de78ba27e6a777e58ea33c/merkblatt-baubegehren-heizsysteme-erneuerbare-energie-ua-0.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Art": "Online-Formular",
+   "Titel": "Zufahrtsbewilligung Innenstadt",
+   "URL": "https://formulare.bs.ch/mfk/zufahrtsbewilligung",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Art": "Offizielle Seite",
+   "Titel": "Zufahrt Innenstadt (bs.ch)",
+   "URL": "https://www.bs.ch/themen/mobilitaet/fahren-und-parkieren/zufahrt-innenstadt",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "zufahrt-innenstadt",
+   "Art": "Offizielle Seite",
+   "Titel": "Zufahrtsbewilligung Kernzone",
+   "URL": "https://www.bs.ch/themen/mobilitaet/fahren-und-parkieren/zufahrtsbewilligungen/antrag-zufahrtsbewilligung-zur-kernzone-innenstadt",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Art": "PDF-Formular",
+   "Titel": "Gesuch Betriebsbewilligung (neu / Wechsel)",
+   "URL": "https://media.bs.ch/original_file/5bdf0f434783c6cc03f3b84e530a2cf45ad13e0a/170-201-erteilung-betriebsbewilligung-0.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Art": "PDF-Formular",
+   "Titel": "Änderung Betriebsbewilligung",
+   "URL": "https://media.bs.ch/original_file/53cfe0bba06f99d31eaaa1cf52ed13da95b9beaa/170-202-aenderung-betriebsbewilligung-0.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Art": "PDF-Formular",
+   "Titel": "Meldeformular Lebensmittelbetrieb",
+   "URL": "https://media.bs.ch/original_file/5c198f1d428ac66048652b600ff5fa2eb82e61b6/klbs-210107-meldeformular-fuer-lebensmittelbetriebe-tatoostu.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Art": "Online-Formular",
+   "Titel": "Online-Baubegehren",
+   "URL": "https://jaxforms.cloud.bs.ch/formservice/services/rest/template/public/KTBS/de/index.html",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Art": "Offizielle Seite",
+   "Titel": "Restaurationsbetrieb (bs.ch)",
+   "URL": "https://www.bs.ch/bvd/bgi/gastgewerbebewilligungen/restaurationsbetrieb",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Art": "Offizielle Seite",
+   "Titel": "Bagatellbereich und Take-away",
+   "URL": "https://www.bs.ch/ls/node/30412",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Art": "Offizielle Seite",
+   "Titel": "Formulare Kantonslabor",
+   "URL": "https://www.bs.ch/gd/kantonslabor/formulare-und-merkblaetter",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "boulevard",
+   "Art": "Online-Formular",
+   "Titel": "Online-Baubegehren",
+   "URL": "https://jaxforms.cloud.bs.ch/formservice/services/rest/template/public/KTBS/de/index.html",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "boulevard",
+   "Art": "Online-Formular",
+   "Titel": "Antrag Boulevardfläche (Allmend)",
+   "URL": "https://eservices.egov.bs.ch/e/502/p/001/antrag-boulevardrestaurant",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "boulevard",
+   "Art": "Offizielle Seite",
+   "Titel": "Verkaufen & Bewirten (bs.ch)",
+   "URL": "https://www.bs.ch/bvd/tiefbauamt/oeffentlichen-raum-nutzen/verkaufen-bewirten",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "boulevard",
+   "Art": "Offizielle Seite",
+   "Titel": "Aussenbewirtung – Baubewilligung",
+   "URL": "https://www.bs.ch/bvd/bgi/baubewilligungsverfahren/aussenbewirtung",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "boulevard",
+   "Art": "Offizielle Seite",
+   "Titel": "Gebührenverordnung öffentlicher Raum (SG 724.910)",
+   "URL": "https://www.gesetzessammlung.bs.ch/app/de/texts_of_law/724.910",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "boulevard",
+   "Art": "Offizielle Seite",
+   "Titel": "Allgemeine Auflagen (PDF)",
+   "URL": "https://media.bs.ch/original_file/03a03ba54dad22170dc7476e2a12ebd16acb4f3b/allgemeine-auflagen-fuer-boulevard-restaurants-0.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Art": "Online-Formular",
+   "Titel": "Meldung Kleinstnutzung Allmend (bis 10 m², 20 Tage)",
+   "URL": "https://formulare.bs.ch/tiefbauamt/kleinstnutzung-oeffentlicher-grund?ekonto=optional",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Art": "Online-Formular",
+   "Titel": "Gesuch Bauinstallation auf Allmend (Mulde, Gerüst …)",
+   "URL": "https://formulare.bs.ch/tiefbauamt/temporaere-bauliche-nutzung-oeffentlichem-grund",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Art": "Offizielle Seite",
+   "Titel": "Bauen & Installieren im öffentlichen Raum",
+   "URL": "https://www.bs.ch/bvd/tiefbauamt/oeffentlichen-raum-nutzen/bauen-installieren-im-oeffentlichen-raum",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "mulde-geruest",
+   "Art": "Offizielle Seite",
+   "Titel": "Richtlinie Bauinstallationen (PDF)",
+   "URL": "https://media.bs.ch/original_file/8dc84ecf536caaab543629406546d63aabdc9ec3/richtlinie-bauinstallationen-4.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "reklame",
+   "Art": "Online-Formular",
+   "Titel": "Online-Baubegehren",
+   "URL": "https://jaxforms.cloud.bs.ch/formservice/services/rest/template/public/KTBS/de/index.html",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "reklame",
+   "Art": "Online-Formular",
+   "Titel": "Gesuch Reklamereiter / Warenauslage",
+   "URL": "https://eservices.egov.bs.ch/e/1200/p/001/permanente-kommerzielle-nutzung-oeffentlicher-grund",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "reklame",
+   "Art": "Offizielle Seite",
+   "Titel": "Reklamen – Baubewilligung",
+   "URL": "https://www.bs.ch/bvd/bgi/baubewilligungsverfahren/reklamen",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "reklame",
+   "Art": "Offizielle Seite",
+   "Titel": "Werben im öffentlichen Raum",
+   "URL": "https://www.bs.ch/bvd/tiefbauamt/oeffentlichen-raum-nutzen/informieren-werben-und-plakatieren-im-oeffentlichen-raum",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "reklame",
+   "Art": "Offizielle Seite",
+   "Titel": "Gebührenverordnung öffentlicher Raum (SG 724.910)",
+   "URL": "https://www.gesetzessammlung.bs.ch/app/de/texts_of_law/724.910",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Art": "Formular auf Seite",
+   "Titel": "Bewilligungsgesuch Familienbetriebe",
+   "URL": "https://www.bs.ch/wsu/awa/arbeitsbeziehungen/bewilligungen-informationen-fuer-unternehmen/ruhetags-und-ladenoeffnungszeiten",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "oeffnungszeiten",
+   "Art": "Offizielle Seite",
+   "Titel": "Ruhetags- und Ladenöffnungszeiten (bs.ch)",
+   "URL": "https://www.bs.ch/wsu/awa/arbeitsbeziehungen/bewilligungen-informationen-fuer-unternehmen/ruhetags-und-ladenoeffnungszeiten",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "foodtruck",
+   "Art": "PDF-Formular",
+   "Titel": "Bewerbungsformular Verkaufsstand",
+   "URL": "https://media.bs.ch/original_file/3db6534f6703767f7001317b3bdb708ac7054f20/formular-fuer-bewerbende-0.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "foodtruck",
+   "Art": "Infoblatt",
+   "Titel": "Infodokument Verkaufsstände (vorher lesen)",
+   "URL": "https://media.bs.ch/original_file/2b05b5e3eb0d3223904b9c526c8afb8d4f8e9bb9/infodokument-verkaufsstaende-2.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "foodtruck",
+   "Art": "Offizielle Seite",
+   "Titel": "Verkaufen & Bewirten (bs.ch)",
+   "URL": "https://www.bs.ch/bvd/tiefbauamt/oeffentlichen-raum-nutzen/verkaufen-bewirten",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "foodtruck",
+   "Art": "Offizielle Seite",
+   "Titel": "Leitfaden mobile Gastronomie (PDF)",
+   "URL": "https://media.bs.ch/original_file/6c87fae5998815d8b8b6310efcb9223d064e90eb/leitfaden-mobile-saisonale-gastronomie-0.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Art": "PDF-Formular",
+   "Titel": "Meldeformular Lebensmittelbetrieb",
+   "URL": "https://media.bs.ch/original_file/5c198f1d428ac66048652b600ff5fa2eb82e61b6/klbs-210107-meldeformular-fuer-lebensmittelbetriebe-tatoostu.pdf",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Art": "Offizielle Seite",
+   "Titel": "Formulare und Merkblätter Kantonslabor",
+   "URL": "https://www.bs.ch/gd/kantonslabor/formulare-und-merkblaetter",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "lebensmittel-melden",
+   "Art": "Offizielle Seite",
+   "Titel": "Lebensmittelsicherheit (bs.ch)",
+   "URL": "https://www.bs.ch/gd/kantonslabor/im-fokus/lebensmittelsicherheit",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Art": "Formular auf Seite",
+   "Titel": "Handelsregister-Formulare",
+   "URL": "https://www.bs.ch/jsd/zentraler-rechtsdienst/handelsregisteramt",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Art": "Offizielle Seite",
+   "Titel": "Kontaktpunkt für Unternehmen",
+   "URL": "https://www.bs.ch/themen/arbeit-und-steuern/unternehmen/unterstuetzung-von-unternehmen/kontaktpunkt-fuer-unternehmen",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Art": "Offizielle Seite",
+   "Titel": "Handelsregisteramt",
+   "URL": "https://www.bs.ch/jsd/zentraler-rechtsdienst/handelsregisteramt",
+   "Gehört zu Anlass-Art": ""
+  },
+  {
+   "Situation": "firma-gruenden",
+   "Art": "Offizielle Seite",
+   "Titel": "Unterstützung von Unternehmen",
+   "URL": "https://www.bs.ch/themen/arbeit-und-steuern/unternehmen/firmenunterstuetzung",
+   "Gehört zu Anlass-Art": ""
+  }
+ ],
+ "Fristen": [
+  {
+   "Situation": "gewerbeparkkarte",
+   "Bewilligung": "Gewerbeparkkarte",
+   "Frist": "Sofort",
+   "Hinweis": "Direkt nach dem Online-Formular, ab Wunschdatum – nutzbar ab Bestätigung per Mail oder in der App ParkSmart Basel"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Bewilligung": "Festwirtschaft (privater Grund)",
+   "Frist": "ca. 1 Monat",
+   "Hinweis": "Festwirtschaftsbewilligung auf privatem Grund"
+  },
+  {
+   "Situation": "baubewilligung",
+   "Bewilligung": "Baubewilligung / Meldeverfahren",
+   "Frist": "ca. 3 Monate",
+   "Hinweis": "Baubewilligung: Entscheid in der Regel innert 3 Monaten ab vollständigem Baubegehren. Mit Vorbesprechung beim BGI im Idealfall 6–12 Wochen, komplexe Vorhaben bis 1 Jahr."
+  },
+  {
+   "Situation": "baubewilligung",
+   "Bewilligung": "Baubewilligung / Meldeverfahren",
+   "Frist": "ca. 2 Wochen",
+   "Hinweis": "Meldeverfahren: Das BGI prüft Meldungen in der Regel innert 2 Wochen. Mindestens 2 Wochen vor Arbeitsbeginn melden; in der Schutzzone oder an Denkmälern zusätzlich 2 Monate vorher der Denkmalpflege."
+  },
+  {
+   "Situation": "restaurant-eroeffnen",
+   "Bewilligung": "Betriebsbewilligung Gastro",
+   "Frist": "ca. 1 Monat",
+   "Hinweis": "Ab vollständigen Unterlagen"
+  },
+  {
+   "Situation": "foodtruck",
+   "Bewilligung": "Foodtruck / Verkaufsstand",
+   "Frist": "bis 3 Monate",
+   "Hinweis": "Bau- und Nutzungsbewilligung nach der Zusage"
+  }
+ ],
+ "Regeln": [
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Erlaubt",
+   "Text": "Alle blauen Zonen",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Erlaubt",
+   "Text": "Gebührenfreie und gebührenpflichtige Parkplätze mit erlaubter Parkdauer ab 90 Minuten – keine Parkuhr-Gebühr",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Erlaubt",
+   "Text": "Im Parkverbot bis maximal 4 Stunden, Beginn mit Parkscheibe anzeigen",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Erlaubt",
+   "Text": "Innenstadt (Kernzone) nur während Güterumschlag: Mo–Sa 05:00–11:00",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Nicht erlaubt",
+   "Text": "Vor dem eigenen Firmenstandort",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Nicht erlaubt",
+   "Text": "Im Halteverbot oder verkehrsbehindernd",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Nicht erlaubt",
+   "Text": "Auf dem Trottoir, ausser es ist ausdrücklich erlaubt",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Nicht erlaubt",
+   "Text": "Auf beschrifteten Feldern («Taxi», «Polizei», «BVB», «Hotel», «Altersheim» …)",
+   "Nummer": ""
+  },
+  {
+   "Situation": "gewerbeparkkarte",
+   "Typ": "Nicht erlaubt",
+   "Text": "Wo Parkieren generell verboten ist: Verzweigungen, Radstreifen, Brücken, Nähe Bahnübergänge",
+   "Nummer": ""
+  },
+  {
+   "Situation": "notfall",
+   "Typ": "Telefonnummer",
+   "Text": "Kantonspolizei: Notfallbewilligung für die Zufahrt Innenstadt – nur für Notfälle",
+   "Nummer": "061 208 01 46"
+  }
+ ],
+ "Anlass-Arten": [
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Geschäftsfeier vor dem Betrieb",
+   "Untertitel": "Eröffnung oder Jubiläum, wenige Stunden",
+   "Frist": "Gesuch spätestens 3 Monate vorher",
+   "Regeln (eine pro Zeile)": "1 Anlass pro Geschäft und Jahr\nEssen und Getränke müssen gratis sein\nZelte, Tische und kleine Aufbauten erlaubt – Zelte nicht im Boden verankern\nEingänge und Fussweg frei lassen, danach sofort wegräumen und reinigen\nTipp: Nachbarn vorher informieren"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Fest, Markt, Festival, Sportanlass",
+   "Untertitel": "Grössere Veranstaltung auf Strasse oder Platz",
+   "Frist": "Gesuch mindestens 12 Wochen vorher – Reservation bis 1–2 Jahre im Voraus möglich",
+   "Regeln (eine pro Zeile)": "Bau- und Nutzungsbewilligung der Allmendverwaltung\nJe nach Anlass prüfen weitere Stellen mit: Lärm und Abfall (Amt für Umwelt und Energie), Zufahrt (Kantonspolizei), Zelte und Bauten (Feuerpolizei), Strom und Wasser (IWB), ÖV (BVB)\nOft verlangt: Abfallkonzept und Sicherheitskonzept\nBei kurzfristigen Gesuchen ist die Bewilligung nicht garantiert\nGebührenerlass möglich – siehe Kriterienkatalog"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Essen und Getränke verkaufen",
+   "Untertitel": "Verkauf zum Konsum vor Ort, mit Tischen oder Bänken",
+   "Frist": "Entscheid ca. 1 Monat (privater Grund)",
+   "Regeln (eine pro Zeile)": "Du brauchst eine Gelegenheits- und Festwirtschaftsbewilligung, auch beim Verkauf zum Selbstkostenpreis\nGratis abgeben: keine Bewilligung nötig\nAuf Allmend: läuft über das Veranstaltungsgesuch, kein separates Gastro-Gesuch\nAuf privatem Grund: Formular ans Bau- und Gastgewerbeinspektorat, mit Einverständnis der Eigentümerschaft und Kopie des Mietvertrags\nKosten CHF 150 pro Anlass; bei zu später Eingabe evtl. Express-Gebühr\nDie Bewilligung erlaubt keine Musik oder Lautsprecher"
+  },
+  {
+   "Situation": "veranstaltungen",
+   "Art": "Anwohnerstrassenfest",
+   "Untertitel": "Fest der Nachbarschaft, nicht kommerziell",
+   "Frist": "Erstes Mal: Gesuch mindestens 12 Wochen vorher · Wiederholung: Meldung 6 Wochen vorher",
+   "Regeln (eine pro Zeile)": "Nur auf Quartierstrassen, nicht auf Hauptachsen oder ÖV-Strecken\nMax. 1 Tag, Strasse bis 24 Uhr wieder frei, Lautsprecher bis 22 Uhr\n1 Fest pro Ort und Jahr, keine grossen Zelte oder Bühnen\nGebührenfrei"
+  }
+ ],
+ "Bau-Check": [
+  {
+   "ID": "umbau",
+   "Gruppe": "Laden & Lokal",
+   "Vorhaben": "Lokal umbauen",
+   "Hinweis": "Restaurant, Laden, Werkstatt einrichten",
+   "Schnellauswahl": "ja",
+   "Schutzzone fragen": "",
+   "Ergebnis": "bewilligung",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "umnutzung",
+   "Gruppe": "Laden & Lokal",
+   "Vorhaben": "Nutzung ändern",
+   "Hinweis": "z.B. Laden → Café, Büro → Praxis",
+   "Schnellauswahl": "ja",
+   "Schutzzone fragen": "",
+   "Ergebnis": "fragen",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "Rechne mit einer Baubewilligung. Beim Baubegehren musst du die frühere Nutzung angeben. Klär es vorher kurz beim BGI.",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "boulevard",
+   "Gruppe": "Laden & Lokal",
+   "Vorhaben": "Tische draussen (neu)",
+   "Hinweis": "Boulevard, Aussenbewirtung",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "bewilligung",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "Danach brauchst du zusätzlich die Nutzungsbewilligung der Allmendverwaltung.",
+   "Mehr dazu (Situation)": "boulevard"
+  },
+  {
+   "ID": "schild",
+   "Gruppe": "Schild & Werbung",
+   "Vorhaben": "Firmenschild, unbeleuchtet",
+   "Hinweis": "bis 0,5 m² pro Betrieb",
+   "Schnellauswahl": "ja",
+   "Schutzzone fragen": "ja",
+   "Ergebnis": "frei",
+   "Ergebnis bei Schutzzone": "melden",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "leuchtreklame",
+   "Gruppe": "Schild & Werbung",
+   "Vorhaben": "Leuchtreklame oder grosses Schild",
+   "Hinweis": "beleuchtet oder über 0,5 m²",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "bewilligung",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "Dafür stellst du ein Reklamebegehren über das Online-Baubegehren. Kleinere Reklamen werden im vereinfachten Verfahren geprüft.",
+   "Mehr dazu (Situation)": "reklame"
+  },
+  {
+   "ID": "solar",
+   "Gruppe": "Energie",
+   "Vorhaben": "Solaranlage",
+   "Hinweis": "auf Dach oder Fassade",
+   "Schnellauswahl": "ja",
+   "Schutzzone fragen": "ja",
+   "Ergebnis": "melden",
+   "Ergebnis bei Schutzzone": "bewilligung",
+   "Gut zu wissen": "Das Meldeverfahren gilt nur in bestimmten Zonen und unter Bedingungen. Wenn unsicher: nachfragen.",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "wp-innen",
+   "Gruppe": "Energie",
+   "Vorhaben": "Wärmepumpe, innen aufgestellt",
+   "Hinweis": "Luft-Wasser",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "frei",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "wp-aussen",
+   "Gruppe": "Energie",
+   "Vorhaben": "Wärmepumpe, aussen aufgestellt",
+   "Hinweis": "Luft-Wasser, kleines Gerät",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "melden",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "Meldeverfahren gilt im Vorgarten bis 100×160×70 cm (gut eingebettet) oder hinter der Baulinie bis 2 m³. Grössere Geräte brauchen eine Baubewilligung.",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "erdsonde",
+   "Gruppe": "Energie",
+   "Vorhaben": "Erdsonde / Sole-Wärmepumpe",
+   "Hinweis": "",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "bewilligung",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "fassade",
+   "Gruppe": "Gebäude & Gelände",
+   "Vorhaben": "Fassade, Fenster, Dach erneuern",
+   "Hinweis": "Unterhalt, gleich wie vorher",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "ja",
+   "Ergebnis": "fragen",
+   "Ergebnis bei Schutzzone": "melden",
+   "Gut zu wissen": "In Schutzzone oder am Denkmal ist Unterhalt meldepflichtig. Ausserhalb ist er oft frei – kurz nachfragen.",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "schuppen",
+   "Gruppe": "Gebäude & Gelände",
+   "Vorhaben": "Schuppen oder Gartenhaus",
+   "Hinweis": "bis 10 m² Grundfläche",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "melden",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "zaun",
+   "Gruppe": "Gebäude & Gelände",
+   "Vorhaben": "Zaun oder Einfriedung",
+   "Hinweis": "bis 1,20 m hoch",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "melden",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "neubau",
+   "Gruppe": "Gebäude & Gelände",
+   "Vorhaben": "Anbau, Aufstockung, Neubau",
+   "Hinweis": "",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "bewilligung",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": ""
+  },
+  {
+   "ID": "strasse",
+   "Gruppe": "Auf der Strasse",
+   "Vorhaben": "Mulde, Gerüst, Container",
+   "Hinweis": "auf Trottoir oder Strasse",
+   "Schnellauswahl": "",
+   "Schutzzone fragen": "",
+   "Ergebnis": "allmend",
+   "Ergebnis bei Schutzzone": "",
+   "Gut zu wissen": "",
+   "Mehr dazu (Situation)": "mulde-geruest"
+  }
+ ],
+ "Ämter": [
+  {
+   "Name": "Kontaktpunkt für Unternehmen",
+   "Zusatz": "Amt für Wirtschaft und Arbeit",
+   "Zuständig für": "Erste Anlaufstelle, wenn du nicht weisst, welches Amt zuständig ist",
+   "Adresse": "Utengasse 36, 4058 Basel",
+   "Telefon": "+41 61 267 66 99",
+   "Telefonzeiten": "Mo–Fr 9.00–12.00 und 13.30–16.30",
+   "Schalter": "",
+   "E-Mail": "business@bs.ch",
+   "Notfall": "",
+   "Webseite": "https://www.bs.ch/themen/arbeit-und-steuern/unternehmen/unterstuetzung-von-unternehmen/kontaktpunkt-fuer-unternehmen"
+  },
+  {
+   "Name": "Bau- und Gastgewerbeinspektorat",
+   "Zusatz": "Baubewilligungen und Meldeverfahren",
+   "Zuständig für": "Baubewilligung, Meldeverfahren, Firmenschild, Umbau",
+   "Adresse": "Münsterplatz 11, 4001 Basel",
+   "Telefon": "+41 61 267 92 00",
+   "Telefonzeiten": "täglich 9.00–11.00 und 14.00–16.00",
+   "Schalter": "Kein Schalter ohne Anmeldung mehr – Beratungstermin online buchen",
+   "E-Mail": "bvdbgi@bs.ch",
+   "Notfall": "",
+   "Webseite": "https://www.bs.ch/bvd/bgi/baubewilligungsverfahren"
+  },
+  {
+   "Name": "Bau- und Gastgewerbeinspektorat",
+   "Zusatz": "Gastgewerbebewilligungen",
+   "Zuständig für": "Betriebsbewilligung für Restaurant, Café, Bar",
+   "Adresse": "Münsterplatz 11, 4001 Basel",
+   "Telefon": "+41 61 267 70 26",
+   "Telefonzeiten": "täglich 8.00–12.00 und 14.00–16.00",
+   "Schalter": "",
+   "E-Mail": "bvdbgi@bs.ch",
+   "Notfall": "",
+   "Webseite": "https://www.bs.ch/bvd/bgi/gastgewerbebewilligungen/restaurationsbetrieb"
+  },
+  {
+   "Name": "Allmendverwaltung",
+   "Zusatz": "Tiefbauamt",
+   "Zuständig für": "Boulevard, Mulde, Gerüst, Reklamereiter, Verkaufsstand",
+   "Adresse": "Dufourstrasse 40/50, 4052 Basel",
+   "Telefon": "+41 61 267 93 57",
+   "Telefonzeiten": "Mo–Fr 9.00–12.00 und 13.30–16.00",
+   "Schalter": "Kein Schalter angegeben – vorher anrufen",
+   "E-Mail": "bvdav@bs.ch",
+   "Notfall": "",
+   "Webseite": "https://www.bs.ch/bvd/tiefbauamt/abteilungen-des-tiefbauamts"
+  },
+  {
+   "Name": "Motorfahrzeugkontrolle",
+   "Zusatz": "Kantonspolizei",
+   "Zuständig für": "Gewerbeparkkarte, Zufahrt Innenstadt",
+   "Adresse": "Clarastrasse 38, 4058 Basel",
+   "Telefon": "+41 61 208 00 60",
+   "Telefonzeiten": "Mo–Fr 9.00–11.00 und 14.00–16.00",
+   "Schalter": "Mo, Mi, Do 8.00–12.00 und 13.30–16.00 · Di 8.00–12.00 · Fr 8.00–13.00",
+   "E-Mail": "fahrzeuge@jsd.bs.ch",
+   "Notfall": "Notfall-Zufahrt Innenstadt: 061 208 01 46 (nur Notfälle)",
+   "Webseite": "https://www.bs.ch/jsd/polizei/fuer-ihre-sicherheit/im-verkehr/im-strassenverkehr/motorfahrzeugkontrolle"
+  },
+  {
+   "Name": "Handelsregisteramt",
+   "Zusatz": "",
+   "Zuständig für": "Firma gründen, ändern, löschen; Handelsregisterauszug",
+   "Adresse": "Claramattweg 8, 1. OG, 4057 Basel",
+   "Telefon": "+41 61 267 44 55",
+   "Telefonzeiten": "Mo–Fr 8.00–12.00 und 14.00–17.00",
+   "Schalter": "Mo–Fr 8.30–11.30 und 13.30–16.00",
+   "E-Mail": "info.hra@jsd.bs.ch",
+   "Notfall": "",
+   "Webseite": "https://www.bs.ch/jsd/zentraler-rechtsdienst/handelsregisteramt"
+  },
+  {
+   "Name": "Kantonales Laboratorium",
+   "Zusatz": "Lebensmittelinspektorat",
+   "Zuständig für": "Lebensmittelbetrieb melden, Hygiene",
+   "Adresse": "Kannenfeldstrasse 2, 4056 Basel",
+   "Telefon": "+41 61 385 25 00",
+   "Telefonzeiten": "Mo–Do 8.30–11.45 und 13.30–16.30 · Fr bis 16.00",
+   "Schalter": "",
+   "E-Mail": "sekr.kantonslabor@bs.ch",
+   "Notfall": "",
+   "Webseite": "https://www.bs.ch/gd/kantonslabor/im-fokus/lebensmittelsicherheit"
+  },
+  {
+   "Name": "Amt für Wirtschaft und Arbeit",
+   "Zusatz": "",
+   "Zuständig für": "Ladenöffnungszeiten, Sonntagsverkauf, Familienbetriebe",
+   "Adresse": "Utengasse 36, 4058 Basel",
+   "Telefon": "+41 61 267 40 58",
+   "Telefonzeiten": "Mo–Fr 8.00–17.00",
+   "Schalter": "",
+   "E-Mail": "awa@bs.ch",
+   "Notfall": "",
+   "Webseite": "https://www.bs.ch/wsu/awa/arbeitsbeziehungen/bewilligungen-informationen-fuer-unternehmen/ruhetags-und-ladenoeffnungszeiten"
+  }
+ ],
+ "Einstellungen": [
+  {
+   "Einstellung": "Stand der Angaben",
+   "Wert": "23.11.2026"
+  }
+ ]
+}
