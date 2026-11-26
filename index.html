@@ -405,6 +405,7 @@ footer { border-top: 0; }
 /* In der iPhone-App: Schriftgrösse folgt der Einstellung «Textgrösse» (Dynamic Type). */
 html.in-app { font: -apple-system-body; }
 html.in-app body { font-size: 1rem; }
+html.in-app .nav-karte { display: none; } /* In der App gibt es den Tab «Mein Geschäft» */
 
 /* ===== Heller Kopf: ruhig und modern, Dunkelblau als Akzent statt Fläche ===== */
 .top { background: var(--bg); color: var(--fg); }
@@ -428,6 +429,7 @@ html.in-app body { font-size: 1rem; }
   <div class="wrap">
     <a href="#"><img src="assets/logo-gewerbeverband.svg" alt="Gewerbeverband Basel-Stadt" width="173" height="48"></a>
     <nav class="topnav" aria-label="Übersichten">
+      <a href="karte/" class="nav-karte">Karte</a>
       <a href="#aemter">Ämter</a>
       <a href="#fristen">Fristen</a>
     </nav>

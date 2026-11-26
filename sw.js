@@ -1,7 +1,7 @@
 /* Offline-Modus: Seite und eigene Dateien werden gespeichert.
    Seite: zuerst Netz (damit Änderungen sofort ankommen), offline aus dem Speicher.
    Bei jeder inhaltlichen Änderung VERSION erhöhen. */
-const VERSION = "kmu-wegweiser-v10";
+const VERSION = "kmu-wegweiser-v11";
 const FILES = [
   "./",
   "index.html",
@@ -29,6 +29,8 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
+  /* Die Baustellen-Karte (/karte/) hat eigene, täglich neue Daten: nicht über diesen Speicher. */
+  if (new URL(req.url).pathname.includes("/karte/")) return;
   /* Seite und Inhalte (data.json): zuerst Netz, offline aus dem Speicher. */
   const isData = new URL(req.url).pathname.endsWith("/data.json");
   if (req.mode === "navigate" || isData) {

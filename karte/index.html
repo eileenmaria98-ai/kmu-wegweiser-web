@@ -1,0 +1,1406 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Baustellen-Karte</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: Kopfzeile mit Tagesbilanz, Filterzeile mit Tramlinien, darunter Karte (links) und Liste (rechts); auf dem Handy untereinander. */
+:root {
+  --bg: #F2F4F6; --surface: #FFFFFF; --fg: #14202B; --muted: #566676; --line: #D6DDE3;
+  --land: #EEF1F3; --viertel-line: #C7D0D7; --water: #B9D6EA; --wlabel: #4A82AA;
+  --r0: #8796A3; --r1: #A3AFBA; --r2: #BDC6CE; --r3: #CDD4DA; --r4: #DAE0E5;
+  --bau: #D9480F; --verk: #6740C4; --demo: #C2185B; --event: #1B8A5A;
+  --tram: #1F2D3A; --tramcase: #FFFFFF; --focus: #0B63CE; --route: #0B63CE; --alt: #0A8A9E;
+  --font-head: "Space Grotesk", system-ui, sans-serif; --font-body: "Inter", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E151B; --surface: #16212A; --fg: #E6EDF3; --muted: #94A5B4; --line: #2A3945;
+    --land: #17222B; --viertel-line: #2C3B47; --water: #1E3B54; --wlabel: #7FB6DD;
+    --r0: #6C7E8D; --r1: #566774; --r2: #43525E; --r3: #384652; --r4: #2F3B46;
+    --bau: #FF8A4C; --verk: #A58BFF; --demo: #FF6B9A; --event: #4FD19A;
+    --tram: #E3EDF5; --tramcase: #0E151B; --focus: #6AA9FF; --route: #5AA2FF; --alt: #4FD6EA;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E151B; --surface: #16212A; --fg: #E6EDF3; --muted: #94A5B4; --line: #2A3945;
+  --land: #17222B; --viertel-line: #2C3B47; --water: #1E3B54; --wlabel: #7FB6DD;
+  --r0: #6C7E8D; --r1: #566774; --r2: #43525E; --r3: #384652; --r4: #2F3B46;
+  --bau: #FF8A4C; --verk: #A58BFF; --demo: #FF6B9A; --event: #4FD19A;
+  --tram: #E3EDF5; --tramcase: #0E151B; --focus: #6AA9FF; --route: #5AA2FF; --alt: #4FD6EA;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding-block: 20px 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+h1, h2 { font-family: var(--font-head); margin: 0; text-wrap: balance; }
+a { color: var(--focus); }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+header { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: end; justify-content: space-between; }
+h1 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; }
+.stand { color: var(--muted); font-size: 13px; }
+.banner { border: 1px solid var(--line); background: var(--surface); border-left: 4px solid var(--bau); padding: 10px 14px; border-radius: 6px; font-size: 14px; }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tile b { font: 700 1.9rem/1.1 var(--font-head); font-variant-numeric: tabular-nums; }
+.tile span { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 7px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--c); }
+
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-size: 14px; }
+.chip[aria-pressed="false"] { opacity: .55; }
+.chip[aria-pressed="true"] { border-color: var(--fg); }
+.railsw { width: 16px; height: 0; border-top: 3px solid var(--tram); flex: none; }
+.search { flex: 1 1 220px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 12px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: none; padding: 6px 12px; cursor: pointer; font-size: 14px; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+.linesbar { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.linesbar .lbl { font-size: 13px; color: var(--muted); margin-right: 2px; }
+.ln, .badge { min-width: 30px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1.5px solid var(--tram); background: var(--tramcase); color: var(--tram); font: 700 14px/1 var(--font-head); display: inline-flex; align-items: center; justify-content: center; }
+.ln { cursor: pointer; }
+.ln[aria-pressed="true"] { background: var(--tram); color: var(--tramcase); }
+.badge { min-width: 26px; height: 24px; font-size: 13px; }
+.linehint { font-size: 13px; color: var(--muted); }
+
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 16px; align-items: start; }
+.mapbox { position: relative; background: var(--land); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; height: min(74vh, 740px); min-height: 440px; }
+#map { width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+#map.drag { cursor: grabbing; }
+.zoom { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.zoom button { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 18px; line-height: 1; }
+.legend { position: absolute; left: 10px; bottom: 10px; background: color-mix(in srgb, var(--surface) 92%, transparent); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 12px; color: var(--muted); max-width: min(430px, calc(100% - 20px)); }
+.legend.hide { display: none; }
+.rbadge { position: absolute; left: 10px; top: 10px; max-width: calc(100% - 64px); background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--line); border-left: 4px solid var(--route); border-radius: 8px; padding: 6px 10px; font-size: 13px; line-height: 1.35; pointer-events: none; }
+.rbadge b { font-weight: 600; }
+.scale { position: absolute; right: 10px; bottom: 10px; font-size: 11px; color: var(--fg); background: color-mix(in srgb, var(--surface) 85%, transparent); padding: 2px 6px 3px; border-radius: 4px; pointer-events: none; }
+.scale i { display: block; height: 5px; border: 1.5px solid var(--fg); border-top: 0; margin-bottom: 1px; }
+.detail { position: absolute; left: 10px; right: 56px; bottom: 10px; max-width: 470px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; box-shadow: 0 6px 24px rgba(0,0,0,.18); max-height: 60%; overflow: auto; }
+.detail h2 { font-size: 1.05rem; padding-right: 28px; }
+.detail .kind { font-size: 12px; color: var(--muted); display: flex; gap: 7px; align-items: center; margin-bottom: 4px; }
+.detail p { margin: 6px 0 0; font-size: 14px; }
+.detail .row { margin-top: 8px; font-size: 14px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+.detail .row .k { color: var(--muted); font-size: 12.5px; min-width: 84px; }
+.detail .links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: 14px; }
+.detail .x { position: absolute; right: 8px; top: 8px; border: 0; background: none; cursor: pointer; font-size: 20px; line-height: 1; width: 28px; height: 28px; }
+.detail.hide, [hidden] { display: none !important; }
+
+.list { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.group h2 { font-size: .95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.group ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.group li + li { border-top: 1px solid var(--line); }
+.item { width: 100%; text-align: left; background: none; border: 0; padding: 9px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.item:hover, .item[aria-current="true"] { background: color-mix(in srgb, var(--fg) 7%, transparent); }
+.item .t { font-weight: 500; overflow-wrap: anywhere; }
+.item .m { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.empty { color: var(--muted); font-size: 14px; padding: 4px 2px; }
+.links-box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+.links-box h2 { font-size: .95rem; margin-bottom: 6px; }
+.links-box ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
+footer { color: var(--muted); font-size: 12.5px; max-width: 90ch; }
+footer p { margin: 0 0 6px; }
+
+/* Karte */
+.shape { vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; cursor: pointer; }
+.t-bau { fill: color-mix(in srgb, var(--bau) 32%, transparent); stroke: var(--bau); stroke-width: 2.5px; }
+.t-bald { fill: none; stroke: var(--bau); stroke-width: 1.5px; stroke-dasharray: 5 4; }
+.t-verk { fill: color-mix(in srgb, var(--verk) 28%, transparent); stroke: var(--verk); stroke-width: 3px; }
+.t-demo { fill: color-mix(in srgb, var(--demo) 30%, transparent); stroke: var(--demo); stroke-width: 3px; }
+.t-event { fill: color-mix(in srgb, var(--event) 30%, transparent); stroke: var(--event); stroke-width: 2.5px; }
+.shape.sel, .mk.sel { stroke-width: 5px; filter: drop-shadow(0 0 3px var(--fg)); }
+.mk { stroke: var(--surface); stroke-width: 1.5px; cursor: pointer; vector-effect: non-scaling-stroke; }
+.m-bau { fill: var(--bau); } .m-bald { fill: var(--surface); stroke: var(--bau); stroke-width: 2px; }
+.m-verk { fill: var(--verk); } .m-demo { fill: var(--demo); } .m-event { fill: var(--event); }
+.bg-v { fill: var(--land); stroke: var(--viertel-line); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.bg-w { fill: none; stroke: var(--water); stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.bg-r { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.tr-case, .tr-line { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.tr-case { stroke: var(--tramcase); stroke-width: 6px; }
+.tr-line { stroke: var(--tram); stroke-width: 2.5px; }
+.tr-case.off, .tr-line.off { opacity: .18; }
+.tr-line.on { stroke-width: 4px; }
+.tr-case.on { stroke-width: 8px; }
+.stop { fill: var(--tramcase); stroke: var(--tram); stroke-width: 1.8px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.lb { font-family: var(--font-body); paint-order: stroke; stroke-linejoin: round; pointer-events: none; }
+.lb-s { fill: var(--muted); stroke: var(--land); font-weight: 500; text-anchor: middle; }
+.lb-v { fill: var(--muted); stroke: var(--land); font-weight: 600; text-anchor: middle; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+.lb-w { fill: var(--wlabel); stroke: var(--land); font-style: italic; font-weight: 500; text-anchor: middle; letter-spacing: .08em; }
+.lb-h { fill: var(--tram); stroke: var(--tramcase); font-weight: 600; text-anchor: start; }
+.lb-i { fill: var(--fg); stroke: var(--land); font-weight: 600; text-anchor: start; }
+
+
+.route { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+.route h2 { font-size: 1rem; display: flex; gap: 4px 10px; align-items: baseline; flex-wrap: wrap; }
+.route h2 small { font: 400 12.5px/1.4 var(--font-body); color: var(--muted); }
+.rrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+.rrow label { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: var(--muted); flex: 1 1 230px; min-width: 0; }
+.rf { display: flex; gap: 6px; }
+.ac { position: relative; flex: 1; min-width: 0; display: flex; }
+.ac input { flex: 1; }
+.aclist { position: absolute; left: 0; right: 0; top: 100%; margin: 4px 0 0; padding: 4px; list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 28px rgba(0,0,0,.22); max-height: min(42vh, 330px); overflow-y: auto; overscroll-behavior: contain; z-index: 30; }
+.aclist li button { width: 100%; min-height: 44px; display: flex; justify-content: space-between; align-items: center; gap: 10px; text-align: left; padding: 8px 10px; border: 0; background: none; border-radius: 7px; cursor: pointer; font-size: 15px; }
+.aclist li button:hover, .aclist li[aria-selected="true"] button { background: color-mix(in srgb, var(--fg) 8%, transparent); }
+.aclist .ty { color: var(--muted); font-size: 12px; flex: none; }
+.aclist .none { padding: 10px; color: var(--muted); font-size: 14px; }
+.aclist b { font-weight: 700; }
+.qhint { font-size: 13.5px; color: var(--fg); margin-top: -6px; display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; }
+.qhint .m { color: var(--muted); }
+.btn.sm { padding: 4px 10px; font-size: 13px; }
+.ac.sw { flex: 1 1 240px; }
+.ac.sw .search { width: 100%; }
+.sp-halo { fill: color-mix(in srgb, var(--fg) 10%, transparent); stroke: var(--fg); stroke-width: 2px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.sp-pin { fill: var(--fg); stroke: var(--surface); stroke-width: 3px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.sp-lb { fill: var(--fg); stroke: var(--surface); paint-order: stroke; stroke-linejoin: round; font-family: var(--font-body); font-weight: 700; pointer-events: none; }
+input, textarea { font-size: 16px; }
+.rf input { flex: 1; min-width: 0; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 8px 10px; color: var(--fg); font-size: 15px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 14px; white-space: nowrap; }
+.btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); font-weight: 500; }
+.btn[aria-pressed="true"] { border-color: var(--route); box-shadow: inset 0 0 0 2px var(--route); }
+.chk { display: flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--fg); }
+#rres { font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
+#rres:empty { display: none; }
+.rline { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: center; }
+.rline .via { color: var(--muted); font-size: 12.5px; }
+.rsw { width: 24px; height: 0; border-top: 4px solid var(--route); flex: none; }
+.rsw.alt { border-top: 4px dashed var(--alt); }
+.hitlist { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.hitlist li { display: flex; gap: 8px; align-items: baseline; font-size: 14px; }
+.hitlist .dot { margin-top: 5px; }
+.hitlist .lk { background: none; border: 0; padding: 0; text-align: left; cursor: pointer; color: var(--focus); text-decoration: underline; text-underline-offset: 2px; }
+.hitlist .w { color: var(--muted); font-size: 12.5px; }
+.rt-case, .rt-line, .rt-alt { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.rt-case { stroke: var(--surface); stroke-width: 9px; }
+.rt-line { stroke: var(--route); stroke-width: 5px; }
+.rt-alt { stroke: var(--alt); stroke-width: 4px; stroke-dasharray: 9 7; }
+.rt-pin { fill: var(--route); stroke: var(--surface); stroke-width: 2px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.rt-pt { fill: #fff; font-family: var(--font-head); font-weight: 700; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.shape.hit { stroke-width: 4.5px; }
+.mk.hit { stroke: var(--fg); stroke-width: 3px; }
+#map.pick { cursor: crosshair; }
+
+@media (max-width: 900px) {
+  .main { grid-template-columns: minmax(0, 1fr); }
+  .mapbox { height: 64svh; min-height: 380px; }
+  .detail { right: 10px; bottom: 10px; max-height: 62%; }
+  body { padding-block: 14px 28px; }
+  .wrap { gap: 10px; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .tile { padding: 7px 8px; }
+  .tile b { font-size: 1.5rem; }
+  .tile { overflow: hidden; }
+  .tile span { font-size: 12px; align-items: flex-start; gap: 6px; min-width: 0; }
+  .tile .dot { margin-top: 4px; width: 8px; height: 8px; }
+  #lines, #chips { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 4px; }
+  .ln, .chip { flex: none; white-space: nowrap; }
+  .search { flex: 1 1 100%; }
+  .linehint { font-size: 12px; }
+}
+
+.rhead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; font: inherit; pointer-events: none; cursor: default; }
+.rhead h2 { font-size: 1rem; }
+.chev { display: none; }
+.rhint { margin: 0; font-size: 12.5px; line-height: 1.4; color: var(--muted); }
+.rbody { display: flex; flex-direction: column; gap: 10px; }
+#ftoggle { display: none; }
+.fpanel { display: flex; flex-direction: column; gap: 10px; }
+.mnav { display: none; }
+.stb { display: inline-block; font-size: 11.5px; line-height: 1.5; padding: 0 8px; border-radius: 999px; border: 1px solid var(--line); margin-left: 6px; white-space: nowrap; color: var(--muted); }
+.stb.warn { border-color: var(--bau); color: var(--fg); }
+.zeit { font-weight: 600; }
+
+@media (max-width: 900px) {
+  body { padding-block: 12px calc(88px + env(safe-area-inset-bottom, 0px)); }
+  .wrap { gap: 8px; }
+  header { gap: 4px 12px; align-items: center; flex-wrap: nowrap; }
+  header > div:first-child { min-width: 0; }
+  h1 { font-size: 1.3rem; }
+  .stand { font-size: 12px; }
+  .seg { flex: none; }
+  .seg button { padding: 8px 10px; font-size: 13px; }
+  .route { padding: 6px 12px; gap: 6px; }
+  .rhead { pointer-events: auto; cursor: pointer; align-items: center; min-height: 40px; }
+  .chev { display: inline-block; transition: transform .15s; color: var(--muted); }
+  .route:not(.collapsed) .chev { transform: rotate(180deg); }
+  .route.collapsed .rbody { display: none; }
+  #rres .hitlist, #rres .via { display: none; }
+  #rres .rline { gap: 2px 8px; font-size: 14px; }
+  #rres .rline:first-child { cursor: pointer; }
+  #rres .rline:first-child::after { content: "Liste ›"; margin-left: auto; font-weight: 600; color: var(--focus); font-size: 13px; }
+  .rbadge { display: none; }
+  .controls { flex-wrap: nowrap; }
+  .ac.sw { flex: 1 1 auto; }
+  #ftoggle { display: inline-flex; align-items: center; min-height: 44px; flex: none; }
+  .fpanel { display: none; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+  .wrap.fopen .fpanel { display: flex; }
+  #chips, #lines { flex-wrap: wrap; overflow: visible; width: auto; padding-bottom: 0; }
+  .chip { min-height: 40px; }
+  .ln { min-width: 40px; height: 40px; }
+  .search { min-height: 44px; }
+  .btn { min-height: 44px; }
+  .wrap[data-view="map"] .tiles, .wrap[data-view="map"] .links-box, .wrap[data-view="map"] footer, .wrap[data-view="map"] .main > .list { display: none; }
+  .wrap[data-view="list"] .mapbox { display: none; }
+  .mapbox { height: calc(100svh - 300px); min-height: 340px; border-radius: 12px; }
+  .zoom button { width: 42px; height: 42px; }
+  .legend, .scale { display: none; }
+  .detail { left: 8px; right: 8px; bottom: 8px; max-width: none; max-height: 62%; }
+  .item { padding: 13px 14px; }
+  .mnav { display: flex; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line);
+    padding: 8px max(16px, env(safe-area-inset-left, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+  .mnav button { flex: 1; min-height: 48px; border-radius: 12px; border: 1px solid var(--line); background: none; font: 600 15px var(--font-body); color: var(--fg); }
+  .mnav button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+}
+/* Mein Geschäft */
+.back { display: inline-block; font-size: 13px; text-decoration: none; margin-bottom: 2px; }
+.bizbar { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid #31287c; border-radius: 10px; padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; }
+.bizbar .bz-main { display: flex; flex-direction: column; min-width: 0; }
+.bizbar .bz-main strong { font-family: var(--font-head); font-size: 1rem; }
+.bizbar .bz-main span { font-size: 13px; color: var(--muted); }
+.bizbar .bz-act { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.bizbar select { font: inherit; font-size: 15px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 8px; padding: 7px 8px; min-height: 40px; }
+.bizbar input { font-size: 15px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 8px; padding: 7px 10px; min-height: 40px; width: 12rem; max-width: 100%; }
+.bz-circle { fill: color-mix(in srgb, #4f8fcc 14%, transparent); stroke: #4f8fcc; stroke-width: 2px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.bz-pin { fill: #31287c; stroke: #fff; stroke-width: 3px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.bz-lb { fill: #31287c; stroke: var(--surface); paint-order: stroke; stroke-linejoin: round; font-family: var(--font-body); font-weight: 700; pointer-events: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .bz-pin { fill: #8ebee7; } :root:not([data-theme="light"]) .bz-lb { fill: #8ebee7; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap" id="wrap" data-view="map">
+  <header>
+    <div>
+      <a class="back" href="../">← KMU-Wegweiser</a>
+      <h1>Baustellen-Karte</h1>
+      <div class="stand" id="stand">Daten werden geladen</div>
+    </div>
+    <div class="seg" role="group" aria-label="Zeitraum für Demos und Veranstaltungen">
+      <button type="button" id="rng-today" aria-pressed="true">Heute</button>
+      <button type="button" id="rng-week" aria-pressed="false">Nächste 7 Tage</button>
+    </div>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <section class="route collapsed" id="route" hidden aria-label="Meine Route">
+    <button type="button" class="rhead" id="rtoggle" aria-expanded="false"><h2>Meine Route</h2><span class="chev" aria-hidden="true">▾</span></button>
+    <div class="rbody">
+      <p class="rhint">Auto, Strassennetz Basel-Stadt. Orientierung, keine Navigation: Einbahnstrassen und Abbiegeverbote sind nicht berücksichtigt. Geprüft werden nur Behinderungen im Kanton Basel-Stadt.</p>
+      <div class="rrow">
+        <label>Von
+          <span class="rf"><span class="ac"><input id="rfrom" type="text" placeholder="Strasse oder Haltestelle" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" role="combobox" aria-autocomplete="list" aria-controls="acA" aria-expanded="false"><ul class="aclist" id="acA" role="listbox" hidden></ul></span><button type="button" class="btn" id="pickA" aria-pressed="false" title="Start auf der Karte setzen">Karte</button></span>
+        </label>
+        <label>Nach
+          <span class="rf"><span class="ac"><input id="rto" type="text" placeholder="Strasse oder Haltestelle" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" role="combobox" aria-autocomplete="list" aria-controls="acB" aria-expanded="false"><ul class="aclist" id="acB" role="listbox" hidden></ul></span><button type="button" class="btn" id="pickB" aria-pressed="false" title="Ziel auf der Karte setzen">Karte</button></span>
+        </label>
+        <button type="button" class="btn" id="rswap" aria-label="Start und Ziel tauschen" title="Tauschen">⇄</button>
+        <button type="button" class="btn primary" id="rgo">Route prüfen</button>
+        <button type="button" class="btn" id="rclear">Löschen</button>
+      </div>
+      <label class="chk"><input type="checkbox" id="ronly" checked> Nur Einträge auf meiner Route zeigen</label>
+    </div>
+    <div id="rres" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="bizbar" id="bizbar" aria-label="Mein Geschäft">
+    <div class="bz-main"><strong id="bzname">Mein Geschäft</strong><span id="bzinfo">Noch nicht festgelegt. Suche unten einen Ort oder setze dein Geschäft auf der Karte.</span></div>
+    <div class="bz-act">
+      <input id="bzinput" type="text" placeholder="Name, z.B. Bäckerei Muster" aria-label="Name des Geschäfts" hidden>
+      <label hidden id="bzradl">Umkreis <select id="bzrad" aria-label="Umkreis"><option value="100">100 m</option><option value="200">200 m</option><option value="300" selected>300 m</option><option value="500">500 m</option><option value="1000">1 km</option></select></label>
+      <button type="button" class="btn" id="bzpick" aria-pressed="false">Auf der Karte setzen</button>
+      <button type="button" class="btn" id="bzonly" aria-pressed="false" hidden>Nur Umkreis</button>
+      <button type="button" class="btn" id="bzdel" hidden>Entfernen</button>
+    </div>
+  </section>
+
+  <div class="controls">
+    <span class="ac sw"><input class="search" id="q" type="search" placeholder="Ort suchen, z. B. Claraplatz" aria-label="Ort oder Stichwort suchen" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="search" role="combobox" aria-autocomplete="list" aria-controls="acQ" aria-expanded="false"><ul class="aclist" id="acQ" role="listbox" hidden></ul></span>
+    <button type="button" class="btn" id="ftoggle" aria-expanded="false" aria-controls="fpanel">Filter</button>
+  </div>
+  <div class="qhint" id="qhint" role="status" aria-live="polite" hidden></div>
+
+  <div class="fpanel" id="fpanel">
+    <span id="chips" class="controls"></span>
+    <div class="linesbar" id="linesbar" hidden>
+      <span class="lbl">Meine Tramlinie:</span>
+      <span id="lines" class="linesbar"></span>
+      <span class="linehint" id="linehint"></span>
+    </div>
+  </div>
+
+  <section class="tiles" id="tiles" aria-label="Lage heute"></section>
+
+  <div class="main">
+    <div class="mapbox">
+      <svg id="map" role="img" aria-label="Karte von Basel-Stadt mit Baustellen, Verkehrsführungen, Demonstrationen, Veranstaltungen und Tramnetz"></svg>
+      <div class="rbadge" id="rbadge" hidden></div>
+      <div class="zoom">
+        <button type="button" id="zin" aria-label="Hineinzoomen">+</button>
+        <button type="button" id="zout" aria-label="Herauszoomen">−</button>
+        <button type="button" id="zfit" aria-label="Alle anzeigen" title="Alle anzeigen">⤢</button>
+      </div>
+      <div class="legend" id="legend">Ziehen zum Verschieben, Zoomen mit Mausrad oder zwei Fingern. Hineinzoomen zeigt Strassennamen und Titel. Das Tramnetz blendest du oben mit «Tramnetz» ein. Aktuelle Umleitungen der BVB stehen unter der Karte.</div>
+      <div class="scale" id="scale" aria-hidden="true"></div>
+      <div class="detail hide" id="detail" role="dialog" aria-label="Details"></div>
+    </div>
+    <aside class="list" id="list" aria-label="Liste"></aside>
+  </div>
+
+  <section class="links-box">
+    <h2>Trams, Busse und Umleitungen heute</h2>
+    <p style="margin:0 0 6px">Die Karte zeigt das Tramnetz im Regelbetrieb. Umleitungen und Ausfälle der BVB liegen nicht als Kartendaten vor. Die aktuellen Angaben stehen hier:</p>
+    <ul>
+      <li><a href="https://www.bvb.ch/de/aktuelle-informationen/verkehrsinformationen/" target="_blank" rel="noopener">BVB Verkehrsinformationen</a> (Störungen und Umleitungen heute)</li>
+      <li><a href="https://www.bvb.ch/de/aktuelle-informationen/baustelleninformationen/" target="_blank" rel="noopener">BVB Baustelleninformationen</a> (Tram- und Buslinien mit Umleitungsplänen)</li>
+      <li><a href="https://baustellen.bs.ch" target="_blank" rel="noopener">baustellen.bs.ch</a> (Baustellenplattform des Kantons)</li>
+      <li><a href="https://www.bs.ch/bvd/planauflagen-und-anordnungen/projektplaene-verkehrsanordnungen" target="_blank" rel="noopener">Verkehrsanordnungen Basel-Stadt</a> (Projektpläne zu Sperrungen und Umleitungen)</li>
+      <li><strong>Basel-Landschaft:</strong> <a href="https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/tiefbauamt/projekte-baustellen/baustellen/" target="_blank" rel="noopener">Aktuelle Bauarbeiten an Kantonsstrassen</a> (Liste des Tiefbauamts nach Gemeinde). Diese Baustellen sind nicht auf der Karte, weil der Kanton sie nicht als Daten anbietet.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><strong>Quelle:</strong> Kanton Basel-Stadt, Open Government Data (data.bs.ch): «Baustellen» (Tiefbauamt), «Allmendbewilligungen», «Liniennetz» und «Haltestellen des öffentlichen Verkehrs», Strassen, Gewässer und Wohnviertel. Lizenz: Open use, Quellenangabe Pflicht.</p>
+    <p><strong>Hinweis:</strong> Angaben ohne Gewähr. Die Karte zeigt bewilligte Nutzungen des öffentlichen Raums. «Verkehrsführung» bezeichnet die bewilligte Fläche vor Ort, nicht eine vollständige Umleitungsroute. «Trams in der Nähe» sind die Linien, die im Regelnetz an der Stelle verkehren, nicht die aktuell umgeleiteten. Kurzfristige Sperrungen, Unfälle und nicht gemeldete Kundgebungen fehlen. Massgebend sind die Signalisation vor Ort und die offiziellen Stellen.</p>
+  </footer>
+</div>
+
+<nav class="mnav" aria-label="Ansicht">
+  <button type="button" id="vmap" aria-pressed="true">Karte</button>
+  <button type="button" id="vlist" aria-pressed="false">Liste <span id="vcount"></span></button>
+</nav>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var $ = function (s) { return document.querySelector(s); };
+  var LAYERS = [
+    { k: "bau", label: "Baustellen", c: "var(--bau)", on: true },
+    { k: "bald", label: "Beginnen in 14 Tagen", c: "var(--bau)", on: false },
+    { k: "verk", label: "Verkehrsführung", c: "var(--verk)", on: true },
+    { k: "demo", label: "Demonstrationen", c: "var(--demo)", on: true },
+    { k: "event", label: "Veranstaltungen", c: "var(--event)", on: true }
+  ];
+  var KIND = { bau: "Baustelle", bald: "Baustelle, beginnt bald", verk: "Verkehrsführung laut Bewilligung", demo: "Demonstration / Kundgebung", event: "Veranstaltung" };
+  var D = null, items = [], on = {}, range = "today", query = "", selected = -1, showTram = (store("bmk.tram") === "1"), lineSel = {};
+  var v = { x: 0, y: 0, w: 1000, h: 1000 }, svg = $("#map"), gTram, gStops, gShapes, gMarkers, gLabels, labels = [], tramEls = {}, layoutTimer = 0, lastW = 0;
+
+  var searchPlace = null, nearItems = [], gSearch, searchEls = [], route = null, routeBusy = false, G = null, places = {}, pts2 = { A: null, B: null }, pickMode = null, routeOnly = true, gRoute, routeEls = [];
+  var LVLW = [1, 1, 1.05, 1.15, 1.35], ROUTE_TOL = 25;
+  var biz = null, bizOnly = false, bizPick = false, gBiz, bizEls = [];
+  try { biz = JSON.parse(store("kmu.biz") || "null"); if (biz && !(isFinite(biz.x) && isFinite(biz.y))) biz = null; } catch (e) { biz = null; }
+  bizOnly = !!biz && store("kmu.bizOnly") === "1";
+
+  LAYERS.forEach(function (l) { on[l.k] = l.on; });
+
+  function store(k, val) { try { if (val === undefined) return localStorage.getItem(k); localStorage.setItem(k, val); } catch (e) {} return null; }
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function sv(tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  function fmt(iso) { if (!iso) return ""; var p = iso.split("-"); return p[2] + "." + p[1] + "." + p[0]; }
+  function todayCH() {
+    try { return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Zurich" }).format(new Date()); }
+    catch (e) { return new Date().toISOString().slice(0, 10); }
+  }
+  function longDate(iso) {
+    try { return new Date(iso + "T12:00:00").toLocaleDateString("de-CH", { weekday: "long", day: "numeric", month: "long", year: "numeric" }); }
+    catch (e) { return fmt(iso); }
+  }
+  function safeUrl(u) { return typeof u === "string" && /^https:\/\//i.test(u) ? u : null; }
+  function dayLabel(it) {
+    if (it.von <= D.today && it.bis >= D.today) return "heute";
+    try { return new Date(it.von + "T12:00:00").toLocaleDateString("de-CH", { weekday: "short", day: "numeric", month: "numeric" }); }
+    catch (e) { return fmt(it.von); }
+  }
+  function nlines(o) { return Object.keys(o).filter(function (k) { return o[k]; }); }
+  function short(s, n) { s = s || ""; return s.length > n ? s.slice(0, n - 1).trim() + "…" : s; }
+
+  var ST_TXT = { "bewilligt": "bewilligt", "teilweise bewilligt": "teilweise bewilligt", "reserviert": "reserviert, noch nicht entschieden", "gemeldet": "gemeldet, noch keine Bewilligung eingetragen" };
+  var ST_SHORT = { "bewilligt": "bewilligt", "teilweise bewilligt": "teilweise bewilligt", "reserviert": "nicht entschieden", "gemeldet": "gemeldet" };
+  function isMobile() { return window.matchMedia("(max-width: 900px)").matches; }
+  function setView(v2) {
+    $("#wrap").setAttribute("data-view", v2);
+    $("#vmap").setAttribute("aria-pressed", String(v2 === "map")); $("#vlist").setAttribute("aria-pressed", String(v2 === "list"));
+    if (v2 === "map" && D) { lastW = 0; clampV(); setVB(); requestAnimationFrame(function () { lastW = 0; clampV(); setVB(); }); }
+    else { try { window.scrollTo(0, 0); } catch (e) {} }
+  }
+  function setRouteCollapsed(c) { $("#route").classList.toggle("collapsed", c); $("#rtoggle").setAttribute("aria-expanded", String(!c)); }
+  function goSelect(it) { if (isMobile() && $("#wrap").getAttribute("data-view") !== "map") { setView("map"); requestAnimationFrame(function () { select(it.i, true); }); } else select(it.i, true); }
+  function applyZusatz(list) {
+    if (!Array.isArray(list)) return;
+    list.forEach(function (z) {
+      if (!z || !z.match) return; var m = String(z.match).toLowerCase();
+      items.forEach(function (it) {
+        if (it.title.toLowerCase().indexOf(m) < 0) return;
+        if (z.datum && !(it.von <= z.datum && it.bis >= z.datum)) return;
+        if (z.zeit) it.zeit = String(z.zeit); if (z.ort) it.zort = String(z.ort); if (z.quelle) it.zq = String(z.quelle);
+      });
+    });
+  }
+  function stBadge(it) {
+    if (!it.status || it.k === "bau" || it.k === "bald") return null;
+    return el("span", { "class": "stb" + (it.status === "bewilligt" ? "" : " warn") }, ST_SHORT[it.status] || it.status);
+  }
+  function updateChrome() {
+    var n = items.filter(function (i) { return i.show; }).length; $("#vcount").textContent = "(" + n + ")";
+    var f = nlines(lineSel).length + (range === "week" ? 1 : 0) + LAYERS.filter(function (l) { return on[l.k] !== l.on; }).length + (showTram ? 1 : 0);
+    $("#ftoggle").textContent = "Filter" + (f ? " (" + f + ")" : "");
+  }
+
+  function build(data) {
+    D = data; items = [];
+    function add(k, o) { o.k = k; if (!o.status && (k === "bau" || k === "bald")) o.status = "bewilligt"; o.tr = o.tr || []; o.st = o.st || []; o.hs = o.hs || []; o.docs = o.docs || []; items.push(o); }
+    D.baustellen.forEach(function (b) { add(b.status === "aktiv" ? "bau" : "bald", { title: b.name || "Baustelle", text: b.text, info: b.info, von: b.von, bis: b.bis, d: b.d, c: b.c, link: b.link, docs: b.docs, tr: b.tr, st: b.st, hs: b.hs }); });
+    D.verkehr.forEach(function (x) { add("verk", { status: x.status, title: x.text || "Verkehrsführung", von: x.von, bis: x.bis, d: x.d, c: x.c, tr: x.tr, st: x.st, hs: x.hs }); });
+    D.events.forEach(function (x) { add(x.kind, { status: x.status, title: x.text, von: x.von, bis: x.bis, d: x.d, c: x.c, tr: x.tr, st: x.st, hs: x.hs }); });
+    items.forEach(function (it, i) { it.i = i; });
+  }
+
+  function visible(it) {
+    if (!on[it.k]) return false;
+    if ((it.k === "demo" || it.k === "event") && range === "today" && !(it.von <= D.today && it.bis >= D.today)) return false;
+    if (route && routeOnly && !it.hit) return false;
+    if (biz && bizOnly && !route && !inBiz(it)) return false;
+    var ls = nlines(lineSel);
+    if (ls.length && !it.tr.some(function (t) { return lineSel[t]; })) return false;
+    if (query) {
+      var hay = (it.title + " " + (it.text || "") + " " + (it.info || "") + " " + it.st.join(" ") + " " + it.hs.join(" ")).toLowerCase();
+      if (hay.indexOf(query) < 0) return false;
+    }
+    return true;
+  }
+
+  /* ---------- Karte zeichnen ---------- */
+  function addLabel(o) {
+    var t = sv("text", { "class": "lb lb-" + o.cls });
+    t.style.display = "none";
+    o.el = t; gLabels.appendChild(t); labels.push(o);
+  }
+
+  function drawBase() {
+    svg.textContent = ""; labels = []; tramEls = {};
+    var g = sv("g");
+    D.viertel.forEach(function (x) { if (x.d) g.appendChild(sv("path", { d: x.d, "class": "bg-v", "fill-rule": "evenodd" })); });
+    D.water.forEach(function (x) { if (x.d) g.appendChild(sv("path", { d: x.d, "class": "bg-w", "stroke-width": "4" })); });
+    var wd = [3.4, 2.6, 1.8, 1.1, 0.8];
+    D.roads.slice().sort(function (a, b) { return b.lvl - a.lvl; }).forEach(function (r) {
+      g.appendChild(sv("path", { d: r.d, "class": "bg-r", stroke: "var(--r" + Math.min(r.lvl, 4) + ")", "stroke-width": String(wd[Math.min(r.lvl, 4)]) }));
+    });
+    svg.appendChild(g);
+    gTram = sv("g"); svg.appendChild(gTram);
+    (D.tram || []).forEach(function (t) {
+      var c = sv("path", { d: t.d, "class": "tr-case" }), l = sv("path", { d: t.d, "class": "tr-line" });
+      gTram.appendChild(c); gTram.appendChild(l); tramEls[t.n] = [c, l];
+    });
+    gShapes = sv("g"); svg.appendChild(gShapes);
+    gRoute = sv("g"); svg.appendChild(gRoute);
+    gStops = sv("g"); svg.appendChild(gStops);
+    gMarkers = sv("g"); svg.appendChild(gMarkers);
+    gBiz = sv("g"); svg.appendChild(gBiz);
+    gSearch = sv("g"); svg.appendChild(gSearch);
+    gLabels = sv("g"); svg.appendChild(gLabels);
+
+    (D.stops || []).forEach(function (s) {
+      var hub = s.b || s.l.length >= 4;
+      var c = sv("circle", { cx: s.x, cy: s.y, r: 4, "class": "stop" }); c.dataset.hub = hub ? 1 : 0; gStops.appendChild(c); s.dot = c;
+      addLabel({ cls: "h", text: function (w) { return w < 2600 ? s.n + "  " + s.l.join(" ") : s.n; }, x: s.x, y: s.y, a: 0, off: [8, -7], maxW: hub ? 7000 : s.l.length >= 2 ? 3200 : 1700, prio: hub ? 70 : s.l.length >= 2 ? 60 : 55, fs: hub ? 12 : 11, stop: s });
+    });
+    (D.labels || []).forEach(function (l) {
+      if (l.k === "v") addLabel({ cls: "v", text: function () { return l.n; }, x: l.x, y: l.y, a: 0, minW: 2800, maxW: 20000, prio: 90, fs: 13 });
+      else if (l.k === "w") addLabel({ cls: "w", text: function () { return l.n; }, x: l.x, y: l.y, a: l.a, maxW: 12000, prio: 80, fs: 12 });
+      else addLabel({ cls: "s", text: function () { return l.n; }, x: l.x, y: l.y, a: l.a, maxW: [0, 5200, 2800, 1700, 850][l.l] || 800, prio: 50 - l.l * 4, fs: 11 });
+    });
+    items.forEach(function (it) {
+      if (it.d) {
+        var p = sv("path", { d: it.d, "class": "shape t-" + it.k, "fill-rule": "evenodd" });
+        p.dataset.i = it.i; it.pathEl = p; gShapes.appendChild(p);
+      }
+      if (it.c) {
+        var m = sv("circle", { cx: it.c[0], cy: it.c[1], r: 8, "class": "mk m-" + it.k });
+        m.dataset.i = it.i; it.mk = m; gMarkers.appendChild(m);
+        addLabel({ cls: "i", text: function () { return short(it.title, 34); }, x: it.c[0], y: it.c[1], a: 0, off: [10, 4], maxW: 2000, prio: 100, fs: 12, item: it });
+      }
+    });
+  }
+
+  function applyTramStyles() {
+    var ls = nlines(lineSel), any = ls.length > 0;
+    gTram.style.display = showTram ? "" : "none";
+    gStops.style.display = showTram ? "" : "none";
+    Object.keys(tramEls).forEach(function (n) {
+      var sel = !!lineSel[n];
+      tramEls[n].forEach(function (e) { e.classList.toggle("on", any && sel); e.classList.toggle("off", any && !sel); });
+    });
+    (D.stops || []).forEach(function (s) {
+      s.dot.style.display = (!any || s.l.some(function (x) { return lineSel[x]; })) ? "" : "none";
+    });
+  }
+
+  function applyVisibility() {
+    if (route && !routeBusy) { runRoute(true); return; }
+    applyCore();
+  }
+  function applyCore() {
+    items.forEach(function (it) {
+      it.show = visible(it);
+      if (it.pathEl) it.pathEl.style.display = it.show ? "" : "none";
+      if (it.mk) it.mk.style.display = it.show ? "" : "none";
+    });
+    if (selected >= 0 && items[selected] && !items[selected].show) select(-1);
+    nearItems = searchPlace ? items.filter(function (it) { return eligible(it) && firstHit(it, [[searchPlace.x, searchPlace.y, 0]], 250) >= 0; }) : [];
+    applyTramStyles(); renderList(); renderTiles(); renderLineHint(); renderQHint(); updateChrome(); scheduleLayout();
+  }
+  function renderQHint() {
+    var h = $("#qhint"); h.textContent = "";
+    if (searchPlace) {
+      var p = searchPlace; h.hidden = false;
+      h.appendChild(el("strong", null, p.n)); h.appendChild(el("span", { "class": "m" }, "(" + p.t + ")"));
+      h.appendChild(document.createTextNode(nearItems.length ? "· " + nearItems.length + (nearItems.length === 1 ? " Eintrag" : " Einträge") + " im Umkreis von 250 m" : "· nichts Bekanntes im Umkreis von 250 m"));
+      if (G) {
+        var b1 = el("button", { type: "button", "class": "btn sm" }, "Als Start"), b2 = el("button", { type: "button", "class": "btn sm" }, "Als Ziel");
+        b1.onclick = function () { setRoutePoint("A", p); }; b2.onclick = function () { setRoutePoint("B", p); };
+        h.appendChild(b1); h.appendChild(b2);
+      }
+      {
+        var b3 = el("button", { type: "button", "class": "btn sm" }, "Als mein Geschäft");
+        b3.onclick = function () { setBiz({ n: (biz && biz.n && biz.n !== "Mein Geschäft") ? biz.n : p.n, x: p.x, y: p.y, at: p.n }); };
+        h.appendChild(b3);
+      }
+      return;
+    }
+    if (!query) { h.hidden = true; return; }
+    var n = items.filter(function (i) { return i.show; }).length;
+    h.hidden = false; h.appendChild(el("span", { "class": n ? "" : "m" }, n ? n + " Treffer für «" + query + "»" : "Kein Treffer für «" + query + "». Gib einen Ort ein oder prüfe die Schreibweise."));
+  }
+
+  /* ---------- Ansicht ---------- */
+  function setVB() {
+    var r = svg.getBoundingClientRect();
+    v.h = v.w * r.height / Math.max(1, r.width);
+    svg.setAttribute("viewBox", v.x.toFixed(1) + " " + v.y.toFixed(1) + " " + v.w.toFixed(1) + " " + v.h.toFixed(1));
+    var k = v.w / Math.max(1, r.width);
+    if (v.w !== lastW) {
+      lastW = v.w;
+      items.forEach(function (it) { if (it.mk) it.mk.setAttribute("r", (it.k === "bald" ? 6 : 7.5) * k); });
+      (D.stops || []).forEach(function (s) { s.dot.setAttribute("r", ((s.b || s.l.length >= 4) ? 5 : 3.6) * k); s.dot.style.display = s.dot.style.display; });
+      gStops.style.opacity = v.w > 9000 ? 0 : 1;
+      updateScale(k);
+      routeEls.forEach(function (o) { o(k); });
+      searchEls.forEach(function (o) { o(k); });
+      bizEls.forEach(function (o) { o(k); });
+    }
+    scheduleLayout();
+  }
+  function updateScale(k) {
+    var steps = [20, 50, 100, 200, 500, 1000, 2000, 5000], best = steps[0];
+    steps.forEach(function (s) { if (s / k <= 130) best = s; });
+    var box = $("#scale"); box.textContent = "";
+    var bar = el("i"); bar.style.width = (best / k) + "px"; box.appendChild(bar);
+    box.appendChild(document.createTextNode(best >= 1000 ? (best / 1000) + " km" : best + " m"));
+  }
+  function clampV() {
+    v.w = Math.max(250, Math.min(v.w, D.w * 1.1));
+    var r = svg.getBoundingClientRect(); v.h = v.w * r.height / Math.max(1, r.width);
+    v.x = Math.max(-D.w * 0.1 - v.w * 0.5, Math.min(v.x, D.w * 1.1 - v.w * 0.5));
+    v.y = Math.max(-D.h * 0.1 - v.h * 0.5, Math.min(v.y, D.h * 1.1 - v.h * 0.5));
+  }
+  function zoomAt(cx, cy, f) {
+    var r = svg.getBoundingClientRect();
+    var ux = v.x + (cx - r.left) / r.width * v.w, uy = v.y + (cy - r.top) / r.height * v.h;
+    var nw = Math.max(250, Math.min(v.w * f, D.w * 1.1)); f = nw / v.w;
+    v.x = ux - (ux - v.x) * f; v.y = uy - (uy - v.y) * f; v.w = nw;
+    clampV(); setVB();
+  }
+  function fitAll() {
+    var pts = items.filter(function (i) { return i.show && i.c; }).map(function (i) { return i.c; });
+    var r = svg.getBoundingClientRect();
+    if (!pts.length) { v.x = 0; v.y = 0; v.w = D.w; }
+    else {
+      var xs = pts.map(function (p) { return p[0]; }), ys = pts.map(function (p) { return p[1]; });
+      var q = function (a, p) { a = a.slice().sort(function (m, n) { return m - n; }); return a[Math.min(a.length - 1, Math.max(0, Math.round(p * (a.length - 1))))]; };
+      var lo = pts.length < 8 ? 0 : 0.08, hi = 1 - lo;
+      var x0 = q(xs, lo), x1 = q(xs, hi), y0 = q(ys, lo), y1 = q(ys, hi);
+      var pad = 500, bw = x1 - x0 + 2 * pad, bh = y1 - y0 + 2 * pad;
+      v.w = Math.max(2400, bw, bh * r.width / Math.max(1, r.height));
+      v.x = (x0 + x1) / 2 - v.w / 2;
+      v.y = (y0 + y1) / 2 - v.w * r.height / Math.max(1, r.width) / 2;
+    }
+    lastW = 0; clampV(); setVB();
+  }
+  function focusItem(it) {
+    if (!it.c) return;
+    var r = svg.getBoundingClientRect();
+    v.w = 1000; v.x = it.c[0] - v.w / 2;
+    v.y = it.c[1] - v.w * r.height / Math.max(1, r.width) * 0.4;
+    lastW = 0; clampV(); setVB();
+  }
+
+  /* ---------- Beschriftung mit Kollisionsprüfung ---------- */
+  function scheduleLayout() { clearTimeout(layoutTimer); layoutTimer = setTimeout(layout, 90); }
+  function layout() {
+    if (!D) return;
+    var r = svg.getBoundingClientRect(), k = v.w / Math.max(1, r.width), W = r.width, H = r.height;
+    var cand = [];
+    labels.forEach(function (L) {
+      var show = true;
+      if (L.item && !L.item.show) show = false;
+      if (L.stop && (!showTram || (L.stop.dot && L.stop.dot.style.display === "none"))) show = false;
+      var mw = (L.item && L.item.hit) ? 6000 : L.maxW;
+      if (mw && v.w > mw) show = false;
+      if (L.minW && v.w < L.minW) show = false;
+      if (show) {
+        var sx = (L.x - v.x) / k, sy = (L.y - v.y) / k;
+        if (sx < -60 || sx > W + 60 || sy < -30 || sy > H + 30) show = false; else { L.sx = sx; L.sy = sy; }
+      }
+      if (show) cand.push(L); else if (L.el.style.display !== "none") L.el.style.display = "none";
+    });
+    cand.sort(function (a, b) { return ((b.item && b.item.hit) ? 120 : b.prio) - ((a.item && a.item.hit) ? 120 : a.prio); });
+    var grid = {}, CS = 80;
+    cand.forEach(function (L) {
+      var txt = L.text(v.w), fs = L.fs;
+      var tw = txt.length * fs * (L.cls === "v" ? 1.05 : 0.56) + 4, th = fs + 3;
+      var ang = (L.a || 0) * Math.PI / 180, ca = Math.abs(Math.cos(ang)), sa = Math.abs(Math.sin(ang));
+      var bw = tw * ca + th * sa, bh = tw * sa + th * ca;
+      var cx = L.sx + (L.off ? L.off[0] + (L.cls === "h" || L.cls === "i" ? tw / 2 : 0) : 0), cy = L.sy + (L.off ? L.off[1] : 0);
+      var rect = [cx - bw / 2, cy - bh / 2, cx + bw / 2, cy + bh / 2], hit = false, cells = [];
+      for (var gx = Math.floor(rect[0] / CS); gx <= Math.floor(rect[2] / CS) && !hit; gx++) {
+        for (var gy = Math.floor(rect[1] / CS); gy <= Math.floor(rect[3] / CS) && !hit; gy++) {
+          var key = gx + "," + gy; cells.push(key);
+          var arr = grid[key];
+          if (arr) for (var i = 0; i < arr.length; i++) { var o = arr[i]; if (rect[0] < o[2] && rect[2] > o[0] && rect[1] < o[3] && rect[3] > o[1]) { hit = true; break; } }
+        }
+      }
+      if (hit) { if (L.el.style.display !== "none") L.el.style.display = "none"; return; }
+      cells.forEach(function (key) { (grid[key] = grid[key] || []).push(rect); });
+      var e = L.el;
+      e.textContent = txt;
+      e.setAttribute("font-size", fs * k);
+      e.style.strokeWidth = (3.2 * k) + "px";
+      if (L.cls === "v") e.style.letterSpacing = (0.12 * fs * k) + "px";
+      var px = L.x + (L.off ? L.off[0] * k : 0), py = L.y + (L.off ? L.off[1] * k : 0);
+      e.setAttribute("transform", "translate(" + px.toFixed(1) + " " + py.toFixed(1) + ")" + (L.a ? " rotate(" + L.a + ")" : ""));
+      e.style.display = "";
+    });
+  }
+
+  /* ---------- Details ---------- */
+  function badgeRow(label, nums) {
+    var row = el("div", { "class": "row" }); row.appendChild(el("span", { "class": "k" }, label));
+    nums.forEach(function (n) { row.appendChild(el("span", { "class": "badge" }, n)); });
+    return row;
+  }
+  function textRow(label, arr) {
+    var row = el("div", { "class": "row" }); row.appendChild(el("span", { "class": "k" }, label)); row.appendChild(el("span", null, arr.join(", "))); return row;
+  }
+  function select(i, zoom) {
+    if (selected >= 0 && items[selected]) {
+      if (items[selected].pathEl) items[selected].pathEl.classList.remove("sel");
+      if (items[selected].mk) items[selected].mk.classList.remove("sel");
+    }
+    selected = i;
+    var box = $("#detail");
+    Array.prototype.forEach.call(document.querySelectorAll(".item"), function (b) { b.removeAttribute("aria-current"); });
+    if (i < 0) { box.classList.add("hide"); $("#legend").classList.remove("hide"); return; }
+    var it = items[i];
+    if (it.pathEl) { it.pathEl.classList.add("sel"); gShapes.appendChild(it.pathEl); }
+    if (it.mk) { it.mk.classList.add("sel"); gMarkers.appendChild(it.mk); }
+    var b = document.querySelector('.item[data-i="' + i + '"]'); if (b) b.setAttribute("aria-current", "true");
+    box.textContent = "";
+    var x = el("button", { type: "button", "class": "x", "aria-label": "Schliessen" }, "×"); x.onclick = function () { select(-1); };
+    var kind = el("div", { "class": "kind" }); var dot = el("span", { "class": "dot" }); dot.style.setProperty("--c", "var(--" + (it.k === "bald" ? "bau" : it.k) + ")");
+    kind.appendChild(dot); kind.appendChild(document.createTextNode(KIND[it.k]));
+    box.appendChild(x); box.appendChild(kind); box.appendChild(el("h2", null, it.title));
+    box.appendChild(el("p", null, it.von === it.bis ? fmt(it.von) : fmt(it.von) + " bis " + fmt(it.bis)));
+    if (it.text) box.appendChild(el("p", null, it.text));
+    if (it.info) box.appendChild(el("p", null, it.info));
+    if (it.status) box.appendChild(textRow("Status", [ST_TXT[it.status] || it.status]));
+    if (it.k === "demo" || it.k === "event") {
+      box.appendChild(textRow("Uhrzeit", [it.zeit ? it.zeit + " Uhr (von Hand ergänzt" + (it.zq ? ", Quelle: " + it.zq : "") + ")" : "nicht bekannt, der Kanton gibt keine Zeiten an"]));
+      if (it.zort) box.appendChild(textRow("Treffpunkt", [it.zort]));
+    }
+    if (it.st.length) box.appendChild(textRow("Strassen", it.st));
+    if (it.tr.length) box.appendChild(badgeRow("Trams in der Nähe", it.tr)); else if (it.c) box.appendChild(textRow("Trams in der Nähe", ["keine Tramlinie im Regelnetz"]));
+    if (it.hs.length) box.appendChild(textRow("Haltestellen", it.hs));
+    if (!it.c) box.appendChild(el("p", { "class": "stand" }, "Für diesen Eintrag liegt keine Position in den Daten vor."));
+    var ls = el("div", { "class": "links" });
+    if (it.tr.length) ls.appendChild(el("a", { href: "https://www.bvb.ch/de/aktuelle-informationen/verkehrsinformationen/", target: "_blank", rel: "noopener" }, "Aktuelle Tram-Umleitungen (BVB)"));
+    if (safeUrl(it.link)) ls.appendChild(el("a", { href: it.link, target: "_blank", rel: "noopener" }, "Projektseite"));
+    (it.docs || []).forEach(function (u, n) {
+      if (!safeUrl(u)) return;
+      var name = ""; try { name = decodeURIComponent(u.split("/").pop() || "").replace(/\.pdf$/i, "").replace(/_/g, " "); } catch (e) {}
+      ls.appendChild(el("a", { href: u, target: "_blank", rel: "noopener" }, name || ("Dokument " + (n + 1))));
+    });
+    if (ls.children.length) box.appendChild(ls);
+    box.classList.remove("hide"); $("#legend").classList.add("hide");
+    if (zoom) focusItem(it);
+  }
+
+  /* ---------- Kacheln, Chips, Liste ---------- */
+  function renderTiles() {
+    var vis = items.filter(function (i) { return i.show; });
+    var c = function (k) { return vis.filter(function (i) { return i.k === k; }).length; };
+    var box = $("#tiles"); box.textContent = "";
+    [["bau", "Baustellen aktiv"], ["verk", "Verkehrsführungen"], ["demo", range === "today" ? "Demos heute" : "Demos, 7 Tage"], ["event", range === "today" ? "Veranstaltungen heute" : "Veranstaltungen, 7 Tage"]].forEach(function (p) {
+      var t = el("div", { "class": "tile" }); t.appendChild(el("b", null, String(c(p[0]))));
+      var s = el("span"); var d = el("span", { "class": "dot" }); d.style.setProperty("--c", "var(--" + p[0] + ")"); s.appendChild(d); s.appendChild(document.createTextNode(p[1])); t.appendChild(s); box.appendChild(t);
+    });
+  }
+  function renderChips() {
+    var box = $("#chips"); box.textContent = "";
+    LAYERS.forEach(function (l) {
+      var b = el("button", { type: "button", "class": "chip", "aria-pressed": String(on[l.k]) });
+      var d = el("span", { "class": "dot" }); d.style.setProperty("--c", l.c);
+      b.appendChild(d); b.appendChild(document.createTextNode(l.label));
+      b.onclick = function () { on[l.k] = !on[l.k]; b.setAttribute("aria-pressed", String(on[l.k])); applyVisibility(); };
+      box.appendChild(b);
+    });
+    var tb = el("button", { type: "button", "class": "chip", "aria-pressed": String(showTram) });
+    tb.appendChild(el("span", { "class": "railsw" })); tb.appendChild(document.createTextNode("Tramnetz"));
+    tb.onclick = function () { showTram = !showTram; store("bmk.tram", showTram ? "1" : "0"); tb.setAttribute("aria-pressed", String(showTram)); applyVisibility(); };
+    box.appendChild(tb);
+  }
+  function renderLines() {
+    var box = $("#lines"); box.textContent = "";
+    (D.tram || []).forEach(function (t) {
+      var b = el("button", { type: "button", "class": "ln", "aria-pressed": String(!!lineSel[t.n]), "aria-label": "Tram " + t.n }, t.n);
+      b.onclick = function () {
+        lineSel[t.n] = !lineSel[t.n]; b.setAttribute("aria-pressed", String(!!lineSel[t.n]));
+        store("bmk.lines", JSON.stringify(nlines(lineSel)));
+        if (lineSel[t.n] && !showTram) { showTram = true; renderChips(); }
+        applyCore();
+      };
+      box.appendChild(b);
+    });
+    $("#linesbar").hidden = !(D.tram && D.tram.length);
+  }
+  function renderLineHint() {
+    var ls = nlines(lineSel), h = $("#linehint");
+    h.textContent = ls.length ? "Es werden nur Einträge nahe Tram " + ls.join(", ") + " gezeigt." : "Wähle deine Linie, um nur Einträge entlang davon zu sehen.";
+  }
+  function makeRow(it, lead) {
+    var li = el("li"); var b = el("button", { type: "button", "class": "item", "data-i": it.i });
+    b.appendChild(el("span", { "class": "t" }, it.title));
+    var meta = (it.k === "demo" || it.k === "event") ? dayLabel(it) + (it.zeit ? " · " + it.zeit + " Uhr" : "") : fmt(it.von) + " bis " + fmt(it.bis);
+    var ms = el("span", { "class": "m" }, (lead ? lead + " · " : "") + meta), sb = stBadge(it); if (sb) ms.appendChild(sb);
+    b.appendChild(ms);
+    var where = [];
+    if (it.tr.length) where.push("Tram " + it.tr.slice(0, 6).join(", ") + (it.tr.length > 6 ? " …" : ""));
+    var sts = it.st.filter(function (s) { return it.title.indexOf(s) < 0; }).slice(0, 2); if (sts.length) where.push(sts.join(", "));
+    if (!it.c) where.push("keine Position in den Daten");
+    if (where.length) b.appendChild(el("span", { "class": "m" }, where.join(" · ")));
+    b.onclick = function () { goSelect(it); };
+    li.appendChild(b); return li;
+  }
+  function renderList() {
+    var box = $("#list"); box.textContent = "";
+    if (biz && !route) {
+      var near = items.filter(function (it) { return it.show && inBiz(it); }).sort(function (a, b) { return bizDist(a) - bizDist(b); });
+      var gb = el("section", { "class": "group" }), hb = el("h2"), db = el("span", { "class": "dot" }); db.style.setProperty("--c", "#4f8fcc"); hb.appendChild(db);
+      hb.appendChild(document.createTextNode("Rund um «" + biz.n + "» (" + near.length + ")")); gb.appendChild(hb);
+      if (!near.length) gb.appendChild(el("div", { "class": "empty" }, "Im Umkreis von " + km(biz.r || 300) + " ist mit den gewählten Filtern nichts eingetragen."));
+      else { var ub = el("ul"); near.forEach(function (it) { var dd = bizDist(it); ub.appendChild(makeRow(it, dd < 25 ? "direkt hier" : km(dd))); }); gb.appendChild(ub); }
+      box.appendChild(gb);
+      if (bizOnly) { if (selected >= 0) { var bs0 = document.querySelector('.item[data-i="' + selected + '"]'); if (bs0) bs0.setAttribute("aria-current", "true"); } return; }
+    }
+    if (searchPlace && nearItems.length) {
+      var gn = el("section", { "class": "group" }), hn = el("h2"), dn = el("span", { "class": "dot" }); dn.style.setProperty("--c", "var(--fg)"); hn.appendChild(dn);
+      hn.appendChild(document.createTextNode("In der Nähe von «" + searchPlace.n + "» (" + nearItems.length + ")")); gn.appendChild(hn);
+      var un = el("ul"); nearItems.forEach(function (it) { un.appendChild(makeRow(it)); }); gn.appendChild(un); box.appendChild(gn);
+    }
+    if (route) {
+      var g = el("section", { "class": "group" });
+      var h = el("h2"); var d = el("span", { "class": "dot" }); d.style.setProperty("--c", "var(--route)"); h.appendChild(d);
+      h.appendChild(document.createTextNode("Entlang deiner Route (" + route.hits.length + ")")); g.appendChild(h);
+      if (!route.hits.length) g.appendChild(el("div", { "class": "empty" }, "Keine bekannten Behinderungen auf deiner Route."));
+      else { var ul0 = el("ul"); route.hits.forEach(function (it) { ul0.appendChild(makeRow(it, it.hitS < 40 ? "am Start" : "nach " + km(it.hitS))); }); g.appendChild(ul0); }
+      box.appendChild(g);
+      if (routeOnly) { if (selected >= 0) { var bb = document.querySelector('.item[data-i="' + selected + '"]'); if (bb) bb.setAttribute("aria-current", "true"); } return; }
+    }
+    LAYERS.forEach(function (l) {
+      if (!on[l.k]) return;
+      var rows = items.filter(function (i) { return i.k === l.k && i.show; });
+      var g = el("section", { "class": "group" });
+      var h = el("h2"); var d = el("span", { "class": "dot" }); d.style.setProperty("--c", l.c); h.appendChild(d); h.appendChild(document.createTextNode(l.label + " (" + rows.length + ")")); g.appendChild(h);
+      if (!rows.length) {
+        g.appendChild(el("div", { "class": "empty" }, l.k === "verk" ? "Heute keine Verkehrsführungen in den Daten." : l.k === "demo" ? (range === "today" ? "Heute sind keine Demonstrationen gemeldet." : "In den nächsten 7 Tagen sind keine Demonstrationen gemeldet.") : "Keine Einträge."));
+      } else {
+        var ul = el("ul");
+        rows.sort(function (a, b) { return (a.von < b.von ? -1 : a.von > b.von ? 1 : 0) || a.title.localeCompare(b.title, "de"); });
+        rows.forEach(function (it) { ul.appendChild(makeRow(it)); });
+        g.appendChild(ul);
+      }
+      box.appendChild(g);
+    });
+    if (selected >= 0) { var b2 = document.querySelector('.item[data-i="' + selected + '"]'); if (b2) b2.setAttribute("aria-current", "true"); }
+  }
+
+  /* ---------- Route ---------- */
+  function km(m) { return m < 950 ? (Math.round(m / 10) * 10) + " m" : (m / 1000).toFixed(1).replace(".", ",") + " km"; }
+  function clientToMap(cx, cy) { var r = svg.getBoundingClientRect(); return [v.x + (cx - r.left) / r.width * v.w, v.y + (cy - r.top) / r.height * v.h]; }
+  function eligible(it) { return on[it.k] && !((it.k === "demo" || it.k === "event") && range === "today" && !(it.von <= D.today && it.bis >= D.today)); }
+
+  function buildGraph() {
+    G = null;
+    var net = D.net; if (!net || !net.edges || !net.edges.length) return;
+    var edges = net.edges.map(function (e) {
+      var p = e[5], pts = [], cum = [0];
+      for (var k = 0; k < p.length; k += 2) { pts.push([p[k], p[k + 1]]); if (k) cum.push(cum[cum.length - 1] + Math.hypot(p[k] - p[k - 2], p[k + 1] - p[k - 1])); }
+      return { a: e[0], b: e[1], lvl: Math.min(e[3], 4), nm: e[4], pts: pts, cum: cum, len: cum[cum.length - 1] };
+    });
+    var adj = net.nodes.map(function () { return []; });
+    edges.forEach(function (e, i) { adj[e.a].push(i); if (e.b !== e.a) adj[e.b].push(i); });
+    G = { n: net.nodes.length, edges: edges, adj: adj, names: net.names };
+  }
+  function norm(t) {
+    return (t || "").toLowerCase().replace(/ä/g, "a").replace(/ö/g, "o").replace(/ü/g, "u").replace(/ß/g, "ss").replace(/[éèêë]/g, "e").replace(/[àâ]/g, "a").replace(/[ôò]/g, "o").replace(/[ïî]/g, "i")
+      .replace(/str\./g, "strasse").replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  }
+  var placeList = [];
+  function buildPlaces() {
+    placeList = []; var seen = {};
+    function add(n, x, y, t) { var nk = norm(n); if (!nk || seen[nk]) return; seen[nk] = 1; placeList.push({ n: n, x: x, y: y, t: t, nk: nk, nc: nk.replace(/ /g, "") }); }
+    (D.stops || []).forEach(function (s) { add(s.n, s.x, s.y, "Haltestelle"); });
+    (D.labels || []).forEach(function (l) { if (l.k === "s") add(l.n, l.x, l.y, "Strasse"); });
+  }
+  function suggest(q) {
+    var qn = norm(q), qc = qn.replace(/ /g, ""), out = [];
+    if (!qn) return out;
+    for (var i = 0; i < placeList.length; i++) {
+      var p = placeList[i], sc = -1;
+      if (p.nk === qn || p.nc === qc) sc = 0;
+      else if (p.nk.indexOf(qn) === 0 || p.nc.indexOf(qc) === 0) sc = 1;
+      else if (p.nk.indexOf(" " + qn) >= 0) sc = 2;
+      else if (p.nc.indexOf(qc) >= 0) sc = 3;
+      if (sc >= 0) out.push({ p: p, sc: sc });
+    }
+    out.sort(function (a, b) { return a.sc - b.sc || (a.p.t === b.p.t ? 0 : a.p.t === "Haltestelle" ? -1 : 1) || a.p.n.length - b.p.n.length; });
+    return out;
+  }
+  function resolvePlace(txt) { var r = suggest(txt); return r.length && (r[0].sc === 0 || r.length === 1) ? r[0].p : null; }
+  function pickPlace(w) {
+    var inp = $(w === "A" ? "#rfrom" : "#rto"), cur = pts2[w];
+    if (cur && inp.value === cur.n) return cur;
+    var p = resolvePlace(inp.value); if (p) { pts2[w] = p; inp.value = p.n; }
+    return p;
+  }
+  function hl(name, q) {
+    var frag = document.createDocumentFragment(), qn = (q || "").trim().toLowerCase(), i = qn ? name.toLowerCase().indexOf(qn) : -1;
+    if (i < 0) { frag.appendChild(document.createTextNode(name)); return frag; }
+    frag.appendChild(document.createTextNode(name.slice(0, i))); frag.appendChild(el("b", null, name.slice(i, i + qn.length))); frag.appendChild(document.createTextNode(name.slice(i + qn.length)));
+    return frag;
+  }
+  function wireAC(w) {
+    var inp = $(w === "A" ? "#rfrom" : "#rto"), ul = $(w === "A" ? "#acA" : "#acB"), res = [], act = -1, hideT = 0;
+    function close() { ul.hidden = true; inp.setAttribute("aria-expanded", "false"); act = -1; }
+    function choose(p) {
+      pts2[w] = p; inp.value = p.n; close();
+      var ow = w === "A" ? "B" : "A", other = $(ow === "A" ? "#rfrom" : "#rto");
+      if (pts2[ow] || other.value.trim()) { if (pickPlace(ow)) { setPick(null); runRoute(false); return; } }
+      other.focus();
+    }
+    function render() {
+      var q = inp.value; ul.textContent = "";
+      if (!q.trim()) { close(); return; }
+      res = suggest(q).slice(0, 8); act = -1;
+      if (!res.length) { ul.appendChild(el("li", { "class": "none" }, "Kein Treffer. Gib eine Strasse oder Haltestelle ein, oder wähle «Karte».")); }
+      res.forEach(function (r, i) {
+        var li = el("li", { role: "option", id: ul.id + "-" + i }), b = el("button", { type: "button", tabindex: "-1" });
+        var nm = el("span"); nm.appendChild(hl(r.p.n, q)); b.appendChild(nm); b.appendChild(el("span", { "class": "ty" }, r.p.t));
+        b.addEventListener("pointerdown", function (e) { e.preventDefault(); });
+        b.addEventListener("click", function () { choose(r.p); });
+        li.appendChild(b); ul.appendChild(li);
+      });
+      ul.hidden = false; inp.setAttribute("aria-expanded", "true");
+    }
+    function mark(i) {
+      Array.prototype.forEach.call(ul.children, function (li, k) { li.setAttribute("aria-selected", String(k === i)); });
+      if (ul.children[i]) { ul.children[i].scrollIntoView({ block: "nearest" }); inp.setAttribute("aria-activedescendant", ul.children[i].id); }
+    }
+    inp.addEventListener("input", function () {
+      clearTimeout(hideT); pts2[w] = null;
+      if (route) { store("bmk.route", ""); clearRoute(true); }
+      render();
+    });
+    inp.addEventListener("focus", function () { if (inp.value.trim() && !pts2[w]) render(); });
+    inp.addEventListener("blur", function () { hideT = setTimeout(close, 180); });
+    inp.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" && !ul.hidden && res.length) { e.preventDefault(); act = Math.min(res.length - 1, act + 1); mark(act); }
+      else if (e.key === "ArrowUp" && !ul.hidden && res.length) { e.preventDefault(); act = Math.max(0, act - 1); mark(act); }
+      else if (e.key === "Escape") { close(); }
+      else if (e.key === "Enter") {
+        e.preventDefault();
+        if (!ul.hidden && res.length && act >= 0) { choose(res[act].p); }
+        else if (!ul.hidden && res.length && (res.length === 1 || res[0].sc === 0)) { choose(res[0].p); }
+        else { close(); $("#rgo").click(); }
+      }
+    });
+  }
+
+  function snap(x, y) {
+    var best = null;
+    G.edges.forEach(function (e, i) {
+      var p = e.pts;
+      for (var k = 0; k < p.length - 1; k++) {
+        var ax = p[k][0], ay = p[k][1], dx = p[k + 1][0] - ax, dy = p[k + 1][1] - ay, L2 = dx * dx + dy * dy;
+        var t = L2 ? Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / L2)) : 0;
+        var px = ax + dx * t, py = ay + dy * t, d2 = (px - x) * (px - x) + (py - y) * (py - y);
+        if (!best || d2 < best.d2) best = { d2: d2, e: i, s: e.cum[k] + Math.sqrt(L2) * t, px: px, py: py };
+      }
+    });
+    return best;
+  }
+  function Heap() { this.a = []; }
+  Heap.prototype.push = function (c, n) { var a = this.a, i = a.length; a.push([c, n]); while (i > 0) { var p = (i - 1) >> 1; if (a[p][0] <= a[i][0]) break; var t = a[p]; a[p] = a[i]; a[i] = t; i = p; } };
+  Heap.prototype.pop = function () {
+    var a = this.a, top = a[0], last = a.pop();
+    if (a.length) { a[0] = last; var i = 0, n = a.length; for (;;) { var l = 2 * i + 1, r = l + 1, m = i; if (l < n && a[l][0] < a[m][0]) m = l; if (r < n && a[r][0] < a[m][0]) m = r; if (m === i) break; var t = a[m]; a[m] = a[i]; a[i] = t; i = m; } }
+    return top;
+  };
+  function at(e, s) {
+    var c = e.cum, p = e.pts; if (s <= 0) return p[0]; if (s >= e.len) return p[p.length - 1];
+    for (var k = 1; k < c.length; k++) if (c[k] >= s) { var t = (s - c[k - 1]) / ((c[k] - c[k - 1]) || 1); return [p[k - 1][0] + (p[k][0] - p[k - 1][0]) * t, p[k - 1][1] + (p[k][1] - p[k - 1][1]) * t]; }
+    return p[p.length - 1];
+  }
+  function seg(e, s0, s1) {
+    var lo = Math.min(s0, s1), hi = Math.max(s0, s1), out = [at(e, lo)];
+    for (var k = 0; k < e.cum.length; k++) if (e.cum[k] > lo && e.cum[k] < hi) out.push(e.pts[k]);
+    out.push(at(e, hi)); return s0 > s1 ? out.reverse() : out;
+  }
+  function shortest(sa, sb, pen) {
+    var E = G.edges, f = function (i) { return LVLW[E[i].lvl] * (pen ? pen[i] : 1); };
+    var dist = new Float64Array(G.n).fill(Infinity), pe = new Int32Array(G.n).fill(-1), pn = new Int32Array(G.n).fill(-1), h = new Heap(), ea = E[sa.e], eb = E[sb.e];
+    var ca = sa.s * f(sa.e), cb = (ea.len - sa.s) * f(sa.e);
+    if (ca < dist[ea.a]) { dist[ea.a] = ca; h.push(ca, ea.a); }
+    if (cb < dist[ea.b]) { dist[ea.b] = cb; h.push(cb, ea.b); }
+    while (h.a.length) {
+      var t = h.pop(), c = t[0], u = t[1]; if (c > dist[u]) continue;
+      var ad = G.adj[u];
+      for (var k = 0; k < ad.length; k++) { var ei = ad[k], e = E[ei], w = e.a === u ? e.b : e.a, nc = c + e.len * f(ei); if (nc < dist[w]) { dist[w] = nc; pe[w] = ei; pn[w] = u; h.push(nc, w); } }
+    }
+    var fb = f(sb.e), viaA = dist[eb.a] + sb.s * fb, viaB = dist[eb.b] + (eb.len - sb.s) * fb, direct = sa.e === sb.e ? Math.abs(sa.s - sb.s) * f(sa.e) : Infinity;
+    var best = Math.min(viaA, viaB, direct); if (!isFinite(best)) return null;
+    var pts, nms = [];
+    if (direct <= viaA && direct <= viaB) { pts = seg(ea, sa.s, sb.s); nms = [ea.nm]; }
+    else {
+      var endN = viaA <= viaB ? eb.a : eb.b, path = [], n = endN;
+      while (pe[n] !== -1) { path.push({ e: pe[n], from: pn[n] }); n = pn[n]; }
+      var startN = n; path.reverse();
+      pts = [[sa.px, sa.py]].concat(seg(ea, sa.s, startN === ea.a ? 0 : ea.len)); nms = [ea.nm];
+      path.forEach(function (st) { var e = E[st.e]; pts = pts.concat(seg(e, e.a === st.from ? 0 : e.len, e.a === st.from ? e.len : 0)); nms.push(e.nm); });
+      pts = pts.concat(seg(eb, endN === eb.a ? 0 : eb.len, sb.s)); nms.push(eb.nm);
+    }
+    var clean = [pts[0]]; pts.forEach(function (p) { var q = clean[clean.length - 1]; if (Math.hypot(p[0] - q[0], p[1] - q[1]) > 0.5) clean.push(p); });
+    var via = []; nms.forEach(function (i) { var nm = G.names[i]; if (nm && via[via.length - 1] !== nm) via.push(nm); });
+    return { pts: clean, via: via };
+  }
+  function sample(pts, step) {
+    var out = [], s = 0;
+    for (var i = 0; i < pts.length - 1; i++) {
+      var ax = pts[i][0], ay = pts[i][1], bx = pts[i + 1][0], by = pts[i + 1][1], L = Math.hypot(bx - ax, by - ay), n = Math.max(1, Math.ceil(L / step));
+      for (var k = 0; k < n; k++) out.push([ax + (bx - ax) * k / n, ay + (by - ay) * k / n, s + L * k / n]);
+      s += L;
+    }
+    if (pts.length) out.push([pts[pts.length - 1][0], pts[pts.length - 1][1], s]);
+    return { pts: out, len: s };
+  }
+
+  function itemGeo(it) {
+    if (it.geo !== undefined) return it.geo;
+    if (!it.d) { it.geo = null; return null; }
+    var parts = [], x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    it.d.split("M").forEach(function (sub) {
+      if (!sub) return;
+      var isPt = sub.indexOf("h0") >= 0, closed = /Z\s*$/.test(sub), nums = sub.replace(/h0|Z/g, "").trim().split(/\s+/).map(Number), pts = [];
+      for (var k = 0; k + 1 < nums.length; k += 2) { pts.push([nums[k], nums[k + 1]]); }
+      if (isPt) pts = pts.slice(0, 1);
+      pts.forEach(function (p) { x0 = Math.min(x0, p[0]); y0 = Math.min(y0, p[1]); x1 = Math.max(x1, p[0]); y1 = Math.max(y1, p[1]); });
+      if (pts.length) parts.push({ closed: closed && pts.length > 2, pts: pts });
+    });
+    it.geo = parts.length ? { parts: parts, x0: x0, y0: y0, x1: x1, y1: y1 } : null; return it.geo;
+  }
+  function inRing(x, y, r) {
+    var inside = false;
+    for (var i = 0, j = r.length - 1; i < r.length; j = i++) {
+      if ((r[i][1] > y) !== (r[j][1] > y) && x < (r[j][0] - r[i][0]) * (y - r[i][1]) / (r[j][1] - r[i][1]) + r[i][0]) inside = !inside;
+    }
+    return inside;
+  }
+  function d2seg(px, py, ax, ay, bx, by) {
+    var dx = bx - ax, dy = by - ay, L2 = dx * dx + dy * dy, t = L2 ? Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / L2)) : 0, qx = ax + dx * t - px, qy = ay + dy * t - py;
+    return qx * qx + qy * qy;
+  }
+  function firstHit(it, S, tol) {
+    var g = itemGeo(it); if (!g) return -1; var t2 = tol * tol;
+    for (var i = 0; i < S.length; i++) {
+      var x = S[i][0], y = S[i][1];
+      if (x < g.x0 - tol || x > g.x1 + tol || y < g.y0 - tol || y > g.y1 + tol) continue;
+      var inside = false, p, q, k;
+      for (p = 0; p < g.parts.length; p++) if (g.parts[p].closed && inRing(x, y, g.parts[p].pts)) inside = !inside;
+      if (inside) return S[i][2];
+      for (p = 0; p < g.parts.length; p++) {
+        q = g.parts[p].pts;
+        if (q.length === 1) { if ((q[0][0] - x) * (q[0][0] - x) + (q[0][1] - y) * (q[0][1] - y) <= t2) return S[i][2]; continue; }
+        for (k = 0; k < q.length - 1; k++) if (d2seg(x, y, q[k][0], q[k][1], q[k + 1][0], q[k + 1][1]) <= t2) return S[i][2];
+        if (g.parts[p].closed && d2seg(x, y, q[q.length - 1][0], q[q.length - 1][1], q[0][0], q[0][1]) <= t2) return S[i][2];
+      }
+    }
+    return -1;
+  }
+  function penalties(hitItems) {
+    var pen = new Float32Array(G.edges.length).fill(1);
+    G.edges.forEach(function (e, i) {
+      var S = sample(e.pts, 20).pts;
+      for (var k = 0; k < hitItems.length; k++) if (firstHit(hitItems[k], S, 15) >= 0) { pen[i] = 6; break; }
+    });
+    return pen;
+  }
+
+  function pathOf(pts) { return "M" + pts.map(function (p) { return p[0].toFixed(0) + " " + p[1].toFixed(0); }).join(" "); }
+  function say(msg) { $("#rres").textContent = msg; }
+  function clearRouteGraphics() {
+    gRoute.textContent = ""; routeEls = [];
+    items.forEach(function (it) { it.hit = false; if (it.pathEl) it.pathEl.classList.remove("hit"); if (it.mk) it.mk.classList.remove("hit"); });
+  }
+  function clearRoute(keepInputs) {
+    route = null; $("#rbadge").hidden = true; clearRouteGraphics(); $("#rres").textContent = "";
+    if (!keepInputs) { $("#rfrom").value = ""; $("#rto").value = ""; pts2 = { A: null, B: null }; store("bmk.route", ""); }
+    applyCore();
+  }
+  function drawRoute(a, b, main, alt) {
+    gRoute.textContent = ""; routeEls = [];
+    var r = svg.getBoundingClientRect(), k = v.w / Math.max(1, r.width);
+    if (alt) gRoute.appendChild(sv("path", { d: pathOf(alt.pts), "class": "rt-alt" }));
+    gRoute.appendChild(sv("path", { d: pathOf(main.pts), "class": "rt-case" }));
+    gRoute.appendChild(sv("path", { d: pathOf(main.pts), "class": "rt-line" }));
+    [[a, "A"], [b, "B"]].forEach(function (pr) {
+      var c = sv("circle", { cx: pr[0].x, cy: pr[0].y, "class": "rt-pin" }), t = sv("text", { x: pr[0].x, y: pr[0].y, "class": "rt-pt" });
+      t.textContent = pr[1]; gRoute.appendChild(c); gRoute.appendChild(t);
+      var upd = function (kk) { c.setAttribute("r", 11 * kk); t.setAttribute("font-size", 12 * kk); }; upd(k); routeEls.push(upd);
+    });
+  }
+  function fitBox(x0, y0, x1, y1, pad) {
+    var r = svg.getBoundingClientRect(), bw = x1 - x0 + 2 * pad, bh = y1 - y0 + 2 * pad;
+    v.w = Math.max(900, bw, bh * r.width / Math.max(1, r.height));
+    v.x = (x0 + x1) / 2 - v.w / 2; v.y = (y0 + y1) / 2 - v.w * r.height / Math.max(1, r.width) / 2;
+    lastW = 0; clampV(); setVB();
+  }
+  function row(swatchCls, strong, rest, via) {
+    var d = el("div", { "class": "rline" }); d.appendChild(el("span", { "class": "rsw" + (swatchCls ? " " + swatchCls : "") }));
+    d.appendChild(el("strong", null, strong)); if (rest) d.appendChild(document.createTextNode(rest));
+    if (via && via.length) d.appendChild(el("span", { "class": "via" }, "über " + via.slice(0, 5).join(" → ") + (via.length > 5 ? " …" : "")));
+    return d;
+  }
+
+  function runRoute(silent, auto) {
+    routeBusy = true;
+    try {
+      if (!G) { applyCore(); return; }
+      var a, b;
+      if (silent && route) { a = route.a; b = route.b; } else { a = pickPlace("A"); b = pickPlace("B"); }
+      if (!a || !b) { say("Bitte Start und Ziel aus der Liste wählen (Strasse oder Haltestelle) oder über «Karte» auf der Karte setzen."); return; }
+      var sa = snap(a.x, a.y), sb = snap(b.x, b.y);
+      var main = shortest(sa, sb, null);
+      if (!main) { route = null; $("#rbadge").hidden = true; clearRouteGraphics(); say("Zwischen Start und Ziel wurde im Strassennetz keine Verbindung gefunden. Setze die Punkte näher an eine Strasse."); applyCore(); return; }
+      var S = sample(main.pts, 15), hits = [];
+      items.forEach(function (it) {
+        it.hit = false; it.hitS = 0;
+        if (!eligible(it)) return;
+        var s = firstHit(it, S.pts, ROUTE_TOL);
+        if (s >= 0) { it.hit = true; it.hitS = s; hits.push(it); }
+      });
+      hits.sort(function (x, y) { return x.hitS - y.hitS; });
+      items.forEach(function (it) { if (it.pathEl) it.pathEl.classList.toggle("hit", !!it.hit); if (it.mk) it.mk.classList.toggle("hit", !!it.hit); });
+      var alt = null, altInfo = null;
+      if (hits.length) {
+        var a0 = shortest(sa, sb, penalties(hits));
+        if (a0) {
+          var S2 = sample(a0.pts, 15), n2 = 0;
+          items.forEach(function (it) { if (eligible(it) && firstHit(it, S2.pts, ROUTE_TOL) >= 0) n2++; });
+          altInfo = { len: S2.len, hits: n2, via: a0.via };
+          if (n2 < hits.length && S2.len <= S.len * 1.8 + 600 && Math.abs(S2.len - S.len) > 40) alt = a0;
+        }
+      }
+      route = { a: a, b: b, hits: hits };
+      drawRoute(a, b, main, alt);
+      var res = $("#rres"); res.textContent = "";
+      res.appendChild(row("", "Route: " + km(S.len), " · " + (hits.length ? hits.length + (hits.length === 1 ? " mögliche Behinderung" : " mögliche Behinderungen") : "keine bekannten Behinderungen"), main.via));
+      if (hits.length) {
+        var KS = { bau: "Baustelle", bald: "Baustelle", verk: "Verkehrsführung", demo: "Demonstration", event: "Veranstaltung" }, ul = el("ul", { "class": "hitlist" });
+        hits.forEach(function (it) {
+          var li = el("li"), dt = el("span", { "class": "dot" }); dt.style.setProperty("--c", "var(--" + (it.k === "bald" ? "bau" : it.k) + ")"); li.appendChild(dt);
+          var wrap = el("span"); if (it.title.toLowerCase().indexOf(KS[it.k].toLowerCase()) !== 0) wrap.appendChild(el("strong", null, KS[it.k] + ": "));
+          var lk = el("button", { type: "button", "class": "lk" }, short(it.title, 90)); lk.onclick = function () { goSelect(it); }; wrap.appendChild(lk);
+          var when = (it.k === "demo" || it.k === "event") ? dayLabel(it) + (it.zeit ? " " + it.zeit + " Uhr" : "") + (it.status && it.status !== "bewilligt" ? " · " + ST_SHORT[it.status] : "") : "bis " + fmt(it.bis);
+          wrap.appendChild(el("span", { "class": "w" }, " · " + (it.hitS < 40 ? "am Start" : "nach " + km(it.hitS)) + " · " + when + (it.tr.length ? " · Tram " + it.tr.slice(0, 5).join(", ") : "")));
+          li.appendChild(wrap); ul.appendChild(li);
+        });
+        res.appendChild(ul);
+      }
+      if (alt) res.appendChild(row("alt", "Umfahrung (Vorschlag): " + km(altInfo.len), " · " + km(altInfo.len - S.len).replace(/^/, altInfo.len >= S.len ? "+" : "−") + " · " + (altInfo.hits ? altInfo.hits + (altInfo.hits === 1 ? " Behinderung" : " Behinderungen") : "keine bekannte Behinderung"), altInfo.via));
+      else if (hits.length) res.appendChild(el("div", { "class": "via" }, "Keine bessere Umfahrung im Strassennetz gefunden."));
+      var offA = Math.sqrt(sa.d2), offB = Math.sqrt(sb.d2);
+      if (Math.max(offA, offB) > 150) res.appendChild(el("div", { "class": "via" }, "Hinweis: Start oder Ziel liegt " + km(Math.max(offA, offB)) + " vom nächsten Strassenabschnitt entfernt."));
+      var nopos = items.filter(function (it) { return eligible(it) && !it.d; });
+      if (nopos.length) res.appendChild(el("div", { "class": "via" }, "Nicht geprüft, weil der Kanton keinen Ort dazu angibt: " + nopos.slice(0, 3).map(function (it) { return it.title; }).join(", ") + (nopos.length > 3 ? " und " + (nopos.length - 3) + " weitere" : "") + "."));
+      var bd = $("#rbadge"); bd.textContent = ""; bd.hidden = false;
+      bd.appendChild(el("b", null, "Route " + km(S.len))); bd.appendChild(document.createTextNode(" · " + (hits.length === 1 ? (hits[0].k === "demo" ? "Demonstration: " : "Behinderung: ") + short(hits[0].title, 36) : hits.length ? hits.length + " Behinderungen" : "frei")));
+      if (alt) bd.appendChild(document.createTextNode(" · Umfahrung " + (altInfo.len >= S.len ? "+" : "−") + km(Math.abs(altInfo.len - S.len)) + ", " + altInfo.hits));
+      if (!silent) {
+        if (!auto && isMobile()) setView("map");
+        store("bmk.route", JSON.stringify({ a: a, b: b }));
+        var xs = main.pts.map(function (p) { return p[0]; }), ys = main.pts.map(function (p) { return p[1]; });
+        fitBox(Math.min.apply(null, xs), Math.min.apply(null, ys), Math.max.apply(null, xs), Math.max.apply(null, ys), 350);
+        if (!auto && isMobile()) { setRouteCollapsed(true); }
+      }
+      applyCore();
+    } finally { routeBusy = false; }
+  }
+  function setPoint(w, m) {
+    pts2[w] = { n: "Punkt auf Karte", x: m[0], y: m[1] };
+    $(w === "A" ? "#rfrom" : "#rto").value = "Punkt auf Karte";
+    setPick(null);
+    if (pts2.A && pts2.B) runRoute(false); else say(w === "A" ? "Start gesetzt. Jetzt das Ziel wählen." : "Ziel gesetzt. Jetzt den Start wählen.");
+  }
+  function setPick(w) {
+    pickMode = w; svg.classList.toggle("pick", !!w);
+    $("#pickA").setAttribute("aria-pressed", String(w === "A")); $("#pickB").setAttribute("aria-pressed", String(w === "B"));
+    if (w && isMobile()) { setView("map"); setRouteCollapsed(true); }
+    if (w) say("Tippe auf die Karte, um " + (w === "A" ? "den Start" : "das Ziel") + " zu setzen.");
+  }
+  function wireRoute() {
+    buildPlaces(); $("#route").hidden = !G; if (!G) return;
+    $("#rgo").onclick = function () { setPick(null); runRoute(false); };
+    $("#rclear").onclick = function () { setPick(null); clearRoute(false); };
+    $("#rswap").onclick = function () {
+      var t = pts2.A; pts2.A = pts2.B; pts2.B = t; var v1 = $("#rfrom").value; $("#rfrom").value = $("#rto").value; $("#rto").value = v1;
+      if (route) runRoute(false);
+    };
+    $("#pickA").onclick = function () { setPick(pickMode === "A" ? null : "A"); };
+    $("#pickB").onclick = function () { setPick(pickMode === "B" ? null : "B"); };
+    wireAC("A"); wireAC("B");
+    $("#ronly").onchange = function (e) { routeOnly = e.target.checked; applyCore(); };
+  }
+  function restoreRoute() {
+    if (!G) return;
+    try {
+      var o = JSON.parse(store("bmk.route") || "null");
+      if (o && o.a && o.b && isFinite(o.a.x) && isFinite(o.b.x)) {
+        pts2.A = o.a; pts2.B = o.b; $("#rfrom").value = o.a.n; $("#rto").value = o.b.n; runRoute(false, true);
+      }
+    } catch (e) {}
+  }
+
+  /* ---------- Ortssuche ---------- */
+  function focusPoint(x, y, w) {
+    var r = svg.getBoundingClientRect();
+    v.w = w; v.x = x - w / 2; v.y = y - w * r.height / Math.max(1, r.width) * 0.45;
+    lastW = 0; clampV(); setVB();
+  }
+  function drawSearchPin() {
+    gSearch.textContent = ""; searchEls = [];
+    if (!searchPlace) return;
+    var p = searchPlace, r = svg.getBoundingClientRect(), k0 = v.w / Math.max(1, r.width);
+    var halo = sv("circle", { cx: p.x, cy: p.y, "class": "sp-halo" }), pin = sv("circle", { cx: p.x, cy: p.y, "class": "sp-pin" }), lb = sv("text", { "class": "sp-lb" });
+    lb.textContent = p.n; gSearch.appendChild(halo); gSearch.appendChild(pin); gSearch.appendChild(lb);
+    var upd = function (k) { halo.setAttribute("r", 22 * k); pin.setAttribute("r", 7 * k); lb.setAttribute("font-size", 14 * k); lb.setAttribute("x", p.x + 14 * k); lb.setAttribute("y", p.y - 12 * k); lb.style.strokeWidth = (4 * k) + "px"; };
+    upd(k0); searchEls.push(upd);
+  }
+  function setRoutePoint(w, p) {
+    pts2[w] = p; $(w === "A" ? "#rfrom" : "#rto").value = p.n;
+    if (route) { store("bmk.route", ""); clearRoute(true); }
+    var ow = w === "A" ? "B" : "A";
+    if (pickPlace(ow)) { runRoute(false); } else { say((w === "A" ? "Start: " : "Ziel: ") + p.n + ". Wähle jetzt " + (w === "A" ? "das Ziel." : "den Start.")); }
+  }
+  function wireSearch() {
+    var inp = $("#q"), ul = $("#acQ"), res = [], act = -1, hideT = 0, qT = 0, flyT = 0, lastKey = "";
+    function close() { ul.hidden = true; inp.setAttribute("aria-expanded", "false"); act = -1; }
+    function scrollToMap() { if (isMobile()) setView("map"); }
+    function commit(p) {
+      clearTimeout(qT); clearTimeout(flyT);
+      inp.value = p.n; close(); searchPlace = p; query = ""; lastKey = p.n;
+      scrollToMap(); drawSearchPin(); applyCore(); focusPoint(p.x, p.y, 900);
+    }
+    function apply(val) {
+      var q = val.trim();
+      if (!q) { searchPlace = null; query = ""; lastKey = ""; drawSearchPin(); applyCore(); return; }
+      var r = suggest(q), best = r.length && r[0].sc <= 1 ? r[0].p : null;
+      if (best) {
+        searchPlace = best; query = ""; drawSearchPin(); applyCore();
+        if (best.n !== lastKey) { lastKey = best.n; clearTimeout(flyT); flyT = setTimeout(function () { focusPoint(best.x, best.y, 900); }, 80); }
+      } else { searchPlace = null; query = q.toLowerCase(); lastKey = ""; drawSearchPin(); applyCore(); }
+    }
+    function render() {
+      var q = inp.value; ul.textContent = "";
+      if (!q.trim()) { close(); return; }
+      res = suggest(q).slice(0, 8); act = -1;
+      if (!res.length || (res.length === 1 && res[0].sc === 0)) { close(); return; }
+      res.forEach(function (r, i) {
+        var li = el("li", { role: "option", id: "acQ-" + i }), b = el("button", { type: "button", tabindex: "-1" });
+        var nm = el("span"); nm.appendChild(hl(r.p.n, q)); b.appendChild(nm); b.appendChild(el("span", { "class": "ty" }, r.p.t));
+        b.addEventListener("pointerdown", function (e) { e.preventDefault(); });
+        b.addEventListener("click", function () { commit(r.p); });
+        li.appendChild(b); ul.appendChild(li);
+      });
+      ul.hidden = false; inp.setAttribute("aria-expanded", "true");
+    }
+    function mark(i) {
+      Array.prototype.forEach.call(ul.children, function (li, k) { li.setAttribute("aria-selected", String(k === i)); });
+      if (ul.children[i]) { ul.children[i].scrollIntoView({ block: "nearest" }); inp.setAttribute("aria-activedescendant", ul.children[i].id); }
+    }
+    inp.addEventListener("input", function () { clearTimeout(hideT); render(); clearTimeout(qT); var val = inp.value; qT = setTimeout(function () { apply(val); }, 220); });
+    inp.addEventListener("focus", function () { if (inp.value.trim()) render(); });
+    inp.addEventListener("blur", function () { hideT = setTimeout(close, 180); });
+    inp.addEventListener("search", function () { if (!inp.value) { clearTimeout(qT); apply(""); close(); } });
+    inp.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" && !ul.hidden && res.length) { e.preventDefault(); act = Math.min(res.length - 1, act + 1); mark(act); }
+      else if (e.key === "ArrowUp" && !ul.hidden && res.length) { e.preventDefault(); act = Math.max(0, act - 1); mark(act); }
+      else if (e.key === "Escape") { close(); }
+      else if (e.key === "Enter") {
+        e.preventDefault();
+        if (!ul.hidden && res.length) commit(res[act >= 0 ? act : 0].p);
+        else { clearTimeout(qT); apply(inp.value); close(); inp.blur(); }
+      }
+    });
+  }
+
+  /* ---------- Mein Geschäft (gespeichert im Browser) ---------- */
+  function inBiz(it) {
+    if (!biz) return false;
+    var r = biz.r || 300;
+    if (firstHit(it, [[biz.x, biz.y, 0]], r) >= 0) return true;
+    return !it.d && it.c ? Math.hypot(it.c[0] - biz.x, it.c[1] - biz.y) <= r : false;
+  }
+  function bizDist(it) {
+    if (!biz) return 0;
+    if (firstHit(it, [[biz.x, biz.y, 0]], 1) >= 0) return 0;
+    for (var t = 25; t <= (biz.r || 300) + 25; t += 25) if (firstHit(it, [[biz.x, biz.y, 0]], t) >= 0) return t;
+    return it.c ? Math.hypot(it.c[0] - biz.x, it.c[1] - biz.y) : 1e9;
+  }
+  function drawBiz() {
+    gBiz.textContent = ""; bizEls = [];
+    if (!biz) return;
+    var r = svg.getBoundingClientRect(), k0 = v.w / Math.max(1, r.width);
+    gBiz.appendChild(sv("circle", { cx: biz.x, cy: biz.y, r: biz.r || 300, "class": "bz-circle" }));
+    var pin = sv("circle", { cx: biz.x, cy: biz.y, "class": "bz-pin" }), lb = sv("text", { "class": "bz-lb" });
+    lb.textContent = biz.n; gBiz.appendChild(pin); gBiz.appendChild(lb);
+    var upd = function (k) { pin.setAttribute("r", 8 * k); lb.setAttribute("font-size", 13 * k); lb.setAttribute("x", biz.x + 12 * k); lb.setAttribute("y", biz.y - 10 * k); lb.style.strokeWidth = (4 * k) + "px"; };
+    upd(k0); bizEls.push(upd);
+  }
+  function renderBizBar() {
+    var has = !!biz;
+    $("#bzname").textContent = has ? biz.n : "Mein Geschäft";
+    $("#bzinfo").textContent = bizPick ? "Tippe auf die Karte, wo dein Geschäft ist."
+      : has ? "Umkreis " + km(biz.r || 300) + (biz.at ? " · bei " + biz.at : "") + " · gespeichert in diesem Browser"
+      : "Noch nicht festgelegt. Suche unten einen Ort oder setze dein Geschäft auf der Karte.";
+    $("#bzinput").hidden = !has; $("#bzradl").hidden = !has; $("#bzonly").hidden = !has; $("#bzdel").hidden = !has;
+    if (has) { if (document.activeElement !== $("#bzinput")) $("#bzinput").value = biz.n === "Mein Geschäft" ? "" : biz.n; $("#bzrad").value = String(biz.r || 300); }
+    $("#bzpick").textContent = has ? "Verschieben" : "Auf der Karte setzen";
+    $("#bzpick").setAttribute("aria-pressed", String(bizPick));
+    $("#bzonly").setAttribute("aria-pressed", String(bizOnly));
+    svg.classList.toggle("pick", bizPick || !!pickMode);
+  }
+  function saveBiz() { store("kmu.biz", biz ? JSON.stringify(biz) : ""); store("kmu.bizOnly", bizOnly ? "1" : "0"); }
+  function focusBiz() { if (biz) focusPoint(biz.x, biz.y, Math.max(900, (biz.r || 300) * 3.2)); }
+  function setBiz(b) {
+    var first = !biz;
+    biz = { n: b.n || "Mein Geschäft", x: b.x, y: b.y, r: (biz && biz.r) || b.r || 300, at: b.at || (biz && biz.at) || "" };
+    bizPick = false; if (first) bizOnly = true;
+    saveBiz(); drawBiz(); renderBizBar(); applyCore(); focusBiz();
+    if (isMobile()) setView("map");
+  }
+  function wireBiz() {
+    $("#bzpick").onclick = function () { bizPick = !bizPick; if (bizPick) { setPick(null); if (isMobile()) setView("map"); } renderBizBar(); };
+    $("#bzonly").onclick = function () { bizOnly = !bizOnly; saveBiz(); renderBizBar(); applyCore(); if (bizOnly) focusBiz(); };
+    $("#bzrad").onchange = function () { if (!biz) return; biz.r = +this.value; saveBiz(); drawBiz(); renderBizBar(); applyCore(); focusBiz(); };
+    $("#bzinput").onchange = function () { if (!biz) return; biz.n = this.value.trim() || "Mein Geschäft"; saveBiz(); drawBiz(); renderBizBar(); renderList(); };
+    $("#bzdel").onclick = function () {
+      if (!biz || !confirm("«" + biz.n + "» entfernen?")) return;
+      biz = null; bizOnly = false; saveBiz(); drawBiz(); renderBizBar(); applyCore(); fitAll();
+    };
+    renderBizBar();
+  }
+
+  /* ---------- Eingabe ---------- */
+  function wire() {
+    var ptrs = {}, moved = 0, pinch = 0;
+    svg.addEventListener("pointerdown", function (e) {
+      ptrs[e.pointerId] = { x: e.clientX, y: e.clientY }; moved = 0;
+      if (Object.keys(ptrs).length === 2) { var a = Object.values(ptrs); pinch = Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y); }
+    });
+    svg.addEventListener("pointermove", function (e) {
+      if (!ptrs[e.pointerId]) return;
+      var prev = ptrs[e.pointerId]; ptrs[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var ks = Object.keys(ptrs);
+      if (ks.length === 2) {
+        var a = ptrs[ks[0]], b = ptrs[ks[1]], dist = Math.hypot(a.x - b.x, a.y - b.y);
+        if (pinch > 0) zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, pinch / dist);
+        pinch = dist; moved = 99; return;
+      }
+      var dx = e.clientX - prev.x, dy = e.clientY - prev.y; moved += Math.abs(dx) + Math.abs(dy);
+      if (moved > 5) {
+        if (!svg.hasPointerCapture(e.pointerId)) { try { svg.setPointerCapture(e.pointerId); } catch (x) {} svg.classList.add("drag"); }
+        var r = svg.getBoundingClientRect(); v.x -= dx / r.width * v.w; v.y -= dy / r.height * v.h; clampV(); setVB();
+      }
+    });
+    function up(e) {
+      var wasClick = moved <= 5 && ptrs[e.pointerId];
+      delete ptrs[e.pointerId]; svg.classList.remove("drag"); pinch = 0;
+      if (wasClick && e.type === "pointerup" && bizPick) { var m0 = clientToMap(e.clientX, e.clientY); setBiz({ n: (biz && biz.n) || "Mein Geschäft", x: m0[0], y: m0[1] }); return; }
+      if (wasClick && e.type === "pointerup" && pickMode) { setPoint(pickMode, clientToMap(e.clientX, e.clientY)); return; }
+      if (wasClick && e.type === "pointerup") {
+        var t = e.target && e.target.closest ? e.target.closest("[data-i]") : null;
+        if (t) select(+t.dataset.i, false); else select(-1);
+      }
+    }
+    svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up);
+    svg.addEventListener("wheel", function (e) { e.preventDefault(); zoomAt(e.clientX, e.clientY, Math.exp(e.deltaY * 0.0016)); }, { passive: false });
+    $("#zin").onclick = function () { var r = svg.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, 0.6); };
+    $("#zout").onclick = function () { var r = svg.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, 1.6); };
+    $("#zfit").onclick = fitAll;
+    function setRange(r) { range = r; store("bmk.range", r); $("#rng-today").setAttribute("aria-pressed", String(r === "today")); $("#rng-week").setAttribute("aria-pressed", String(r === "week")); applyVisibility(); }
+    $("#rng-today").onclick = function () { setRange("today"); };
+    $("#rng-week").onclick = function () { setRange("week"); };
+    if (store("bmk.range") === "week") { range = "week"; $("#rng-today").setAttribute("aria-pressed", "false"); $("#rng-week").setAttribute("aria-pressed", "true"); }
+    $("#rres").addEventListener("click", function (e) { if (isMobile() && e.target.closest && e.target.closest(".rline:first-child") && route) setView("list"); });
+    $("#vmap").onclick = function () { setView("map"); }; $("#vlist").onclick = function () { setView("list"); };
+    $("#rtoggle").onclick = function () { setRouteCollapsed(!$("#route").classList.contains("collapsed")); };
+    $("#ftoggle").onclick = function () { var w = $("#wrap"), o = !w.classList.contains("fopen"); w.classList.toggle("fopen", o); $("#ftoggle").setAttribute("aria-expanded", String(o)); };
+    window.addEventListener("resize", function () { if (D) { lastW = 0; clampV(); setVB(); } });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") select(-1); });
+  }
+
+  function fail(msg) { $("#stand").textContent = "Keine Daten"; var b = $("#banner"); b.hidden = false; b.textContent = msg; }
+
+  fetch("data.json", { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (data) {
+    return fetch("zusatz.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }).then(function (z) { return [data, z]; });
+  }).then(function (pair) {
+    var data = pair[0];
+    build(data); applyZusatz(pair[1]);
+    try { (JSON.parse(store("bmk.lines") || "[]") || []).forEach(function (n) { if ((data.tram || []).some(function (t) { return t.n === n; })) lineSel[n] = true; }); } catch (e) {}
+    drawBase(); buildGraph(); renderChips(); renderLines(); wire(); wireRoute(); wireSearch(); wireBiz(); drawBiz(); applyVisibility();
+    var upd = D.generated ? D.generated.split(" ")[1] : "";
+    $("#stand").textContent = longDate(D.today) + (upd ? " · Daten von " + upd + " Uhr" : "");
+    if (D.today !== todayCH()) {
+      var b = $("#banner"); b.hidden = false;
+      b.textContent = "Achtung: Die Daten stammen vom " + fmt(D.today) + ", nicht von heute. Die Karte wird jeden Morgen aktualisiert. Prüfe in der Zwischenzeit baustellen.bs.ch.";
+    }
+    requestAnimationFrame(function () { if (biz) focusBiz(); else fitAll(); restoreRoute(); });
+  }).catch(function () {
+    fail("Die Daten konnten nicht geladen werden. Aktuelle Baustellen findest du auf baustellen.bs.ch, Tram-Umleitungen bei der BVB (Links unten).");
+  });
+})();
+</script>
+
+</body></html>
