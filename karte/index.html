@@ -2,7 +2,7 @@
 <title>Baustellen-Karte</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
 /* Layout: Kopfzeile mit Tagesbilanz, Filterzeile mit Tramlinien, darunter Karte (links) und Liste (rechts); auf dem Handy untereinander. */
 :root {
@@ -269,13 +269,137 @@ input, textarea { font-size: 16px; }
 .bz-lb { fill: #31287c; stroke: var(--surface); paint-order: stroke; stroke-linejoin: round; font-family: var(--font-body); font-weight: 700; pointer-events: none; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .bz-pin { fill: #8ebee7; } :root:not([data-theme="light"]) .bz-lb { fill: #8ebee7; } }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* ===== Look des KMU-Wegweisers (Gewerbeverband Basel-Stadt) ===== */
+:root {
+  --bg: #f4f8fd; --surface: #ffffff; --fg: #222222; --muted: #575756; --line: #e7edf5;
+  --accent: #31287c; --accent-ink: #ffffff; --icon-bg: #eaf2fb; --mark: #ffd300; --hero2: #4f8fcc;
+  --focus: #31287c; --route: #4f8fcc; --alt: #0A8A9E;
+  --shadow: 0 1px 2px rgba(49,40,124,.06), 0 6px 20px rgba(49,40,124,.08);
+  --font-head: "Inter", Tahoma, Verdana, "Segoe UI", sans-serif; --font-body: "Inter", Tahoma, Verdana, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15123a; --surface: #1f1b4d; --fg: #eef2f8; --muted: #bcbcbc; --line: #2f2a66;
+    --accent: #8ebee7; --accent-ink: #15123a; --icon-bg: #2b2a6e; --mark: #ffe251;
+    --focus: #8ebee7; --route: #8ebee7; --land: #1b1745; --viertel-line: #2f2a66; --tramcase: #15123a;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15123a; --surface: #1f1b4d; --fg: #eef2f8; --muted: #bcbcbc; --line: #2f2a66;
+  --accent: #8ebee7; --accent-ink: #15123a; --icon-bg: #2b2a6e; --mark: #ffe251;
+  --focus: #8ebee7; --route: #8ebee7; --land: #1b1745; --viertel-line: #2f2a66; --tramcase: #15123a;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+}
+body { padding: 0 0 32px; font-feature-settings: "cv11", "ss01"; -webkit-font-smoothing: antialiased; }
+.wrap { padding: 1.6rem max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); max-width: 1112px; gap: 16px; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+
+/* Logo-Leiste */
+.logobar { background: #ffffff; }
+.lwrap { max-width: 1112px; margin: 0 auto; padding: .9rem max(16px, env(safe-area-inset-right, 0px)) .9rem max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.logobar img { display: block; height: 48px; width: auto; }
+.topnav { display: flex; gap: .5rem; flex-wrap: wrap; }
+.topnav a { font: 700 .95rem var(--font-body); text-decoration: none; border-radius: 999px; padding: .45rem 1rem; min-height: 44px; display: inline-flex; align-items: center; background: #eaf2fb; color: #31287c; }
+.topnav a:hover, .topnav a[aria-current="page"] { background: #31287c; color: #ffffff; }
+
+/* Titel */
+header { align-items: end; }
+.eyebrow-top { display: inline-block; font: 700 .85rem var(--font-body); color: var(--accent); text-decoration: none; margin-bottom: .35rem; letter-spacing: .01em; }
+h1 { font: 800 clamp(1.6rem, 4.2vw, 2.4rem)/1.15 var(--font-body); letter-spacing: -0.03em; max-width: 22ch; }
+h1 em { font-style: normal; box-shadow: inset 0 -0.22em 0 var(--mark); }
+h2 { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; }
+.stand { margin-top: .4rem; font-size: .9rem; }
+
+/* Flächen statt Rahmen */
+.route, .bizbar, .tile, .links-box, .group ul, .mapbox, .banner, .fpanel, .aclist, .detail { border: 0; border-radius: 16px; box-shadow: var(--shadow); }
+.banner { background: #fff0a5; color: #222; }
+.mapbox { background: var(--land); }
+.group li + li { border-top: 1px solid var(--line); }
+.tile { padding: 14px 16px; }
+.tile b { font: 800 1.9rem/1.1 var(--font-body); letter-spacing: -0.02em; }
+
+/* Mein Geschäft */
+.bizbar { padding: 14px 16px; gap: 10px 16px; flex-wrap: wrap; justify-content: flex-start; }
+.bz-ic { width: 48px; height: 48px; border-radius: 14px; background: #31287c; color: #fff; display: grid; place-items: center; flex: none; }
+.bizbar .bz-main { flex: 1 1 220px; }
+.bizbar .bz-main strong { font: 700 1.05rem var(--font-body); }
+.bizbar .bz-act { margin-left: auto; }
+#bzedit { display: none; }
+.bizbar select, .bizbar input { border: 0; background: var(--icon-bg); min-height: 44px; border-radius: 12px; }
+
+/* Knöpfe wie im Wegweiser */
+.btn { border: 0; background: var(--icon-bg); color: var(--accent); border-radius: 12px; min-height: 44px; padding: 8px 14px; font-weight: 600; }
+.btn:hover { filter: brightness(.97); }
+.btn.primary, .btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); box-shadow: none; border: 0; }
+.btn.sm { min-height: 36px; border-radius: 10px; }
+.seg { border: 0; background: var(--icon-bg); border-radius: 12px; padding: 0; gap: 0; }
+.seg button { border-radius: 12px; min-height: 44px; padding: 6px 14px; color: var(--accent); font-weight: 600; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.chip { border: 0; background: var(--surface); box-shadow: 0 1px 2px rgba(16,24,40,.08); min-height: 44px; padding: 6px 14px; font-weight: 500; }
+.chip[aria-pressed="true"] { border: 0; background: var(--surface); box-shadow: 0 0 0 2px var(--accent) inset, 0 1px 2px rgba(16,24,40,.08); }
+.chip[aria-pressed="false"] { opacity: 1; color: var(--muted); background: transparent; box-shadow: 0 0 0 1px var(--line) inset; }
+.chip[aria-pressed="false"] .dot { background: transparent; box-shadow: 0 0 0 2px var(--c) inset; }
+.search, .rf input { border: 0; background: var(--surface); border-radius: 14px; min-height: 52px; padding: 10px 16px; font-size: 16px; box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 10px 28px rgba(49,40,124,.10); }
+.rf input { background: var(--icon-bg); box-shadow: none; min-height: 44px; }
+.ln { min-width: 40px; height: 40px; border-radius: 10px; }
+
+/* Route: aufklappbar wie auf dem Handy, damit Mein Geschäft und Karte oben bleiben */
+.rhead { pointer-events: auto; cursor: pointer; align-items: center; min-height: 44px; }
+.chev { display: inline-block; transition: transform .15s; color: var(--muted); }
+.route:not(.collapsed) .chev { transform: rotate(180deg); }
+.route.collapsed .rbody { display: none; }
+.route { padding: 6px 16px; }
+
+/* Liste und Details */
+.item { padding: 12px 14px; min-height: 44px; }
+.item .t { font-weight: 600; }
+.detail { padding: 14px 16px; }
+.detail .x { width: 44px; height: 44px; right: 4px; top: 4px; }
+.zoom button { width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); color: var(--accent); }
+
+@media (max-width: 900px) {
+  body { padding: 0 0 calc(88px + env(safe-area-inset-bottom, 0px)); }
+  .wrap { padding-top: 1rem; gap: 10px; }
+  .logobar img { height: 38px; }
+  .lwrap { padding-block: .6rem; }
+  .topnav a { padding: .4rem .8rem; font-size: .9rem; }
+  header { flex-wrap: wrap; }
+  h1 { font-size: 1.6rem; }
+  .bizbar { flex-wrap: wrap; padding: 10px 12px; gap: 8px 12px; }
+  .bizbar .bz-main { flex: 1 1 0; }
+  .bizbar .bz-main span { font-size: 12.5px; }
+  .bizbar .bz-act { margin-left: 0; width: 100%; }
+  .bizbar:not(.edit) #bzinput, .bizbar:not(.edit) #bzradl, .bizbar:not(.edit) #bzdel { display: none !important; }
+  #bzedit:not([hidden]) { display: inline-flex; align-items: center; }
+  .stand { font-size: 12.5px; }
+  h1 { font-size: 1.45rem; }
+  .eyebrow-top { margin-bottom: .2rem; }
+  .bz-ic { width: 40px; height: 40px; border-radius: 12px; }
+  .mnav { border-top: 0; box-shadow: 0 -4px 20px rgba(49,40,124,.10); }
+  .mnav button { border: 0; background: var(--icon-bg); color: var(--accent); }
+  .mnav button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+}
 </style>
+
+<div class="logobar">
+  <div class="lwrap">
+    <a href="../"><img src="../assets/logo-gewerbeverband.svg" alt="Gewerbeverband Basel-Stadt – zum KMU-Wegweiser" width="173" height="48"></a>
+    <nav class="topnav" aria-label="Übersichten">
+      <a href="./" aria-current="page">Karte</a>
+      <a href="../#aemter">Ämter</a>
+      <a href="../#fristen">Fristen</a>
+    </nav>
+  </div>
+</div>
 
 <div class="wrap" id="wrap" data-view="map">
   <header>
     <div>
-      <a class="back" href="../">← KMU-Wegweiser</a>
-      <h1>Baustellen-Karte</h1>
+      <a class="eyebrow-top" href="../">KMU-Wegweiser Basel</a>
+      <h1>Was ist los <em>rund um dein Geschäft</em>?</h1>
       <div class="stand" id="stand">Daten werden geladen</div>
     </div>
     <div class="seg" role="group" aria-label="Zeitraum für Demos und Veranstaltungen">
@@ -286,8 +410,21 @@ input, textarea { font-size: 16px; }
 
   <div class="banner" id="banner" hidden></div>
 
+  <section class="bizbar" id="bizbar" aria-label="Mein Geschäft">
+    <span class="bz-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M5 13v7h14v-7"/><path d="M10 20v-4h4v4"/></svg></span>
+    <div class="bz-main"><strong id="bzname">Mein Geschäft</strong><span id="bzinfo">Noch nicht festgelegt. Suche unten einen Ort oder setze dein Geschäft auf der Karte.</span></div>
+    <button type="button" class="btn" id="bzedit" aria-expanded="false" hidden>Ändern</button>
+    <div class="bz-act">
+      <input id="bzinput" type="text" placeholder="Name, z.B. Bäckerei Muster" aria-label="Name des Geschäfts" hidden>
+      <label hidden id="bzradl">Umkreis <select id="bzrad" aria-label="Umkreis"><option value="100">100 m</option><option value="200">200 m</option><option value="300" selected>300 m</option><option value="500">500 m</option><option value="1000">1 km</option></select></label>
+      <button type="button" class="btn" id="bzpick" aria-pressed="false">Auf der Karte setzen</button>
+      <button type="button" class="btn" id="bzonly" aria-pressed="false" hidden>Nur Umkreis</button>
+      <button type="button" class="btn" id="bzdel" hidden>Entfernen</button>
+    </div>
+  </section>
+
   <section class="route collapsed" id="route" hidden aria-label="Meine Route">
-    <button type="button" class="rhead" id="rtoggle" aria-expanded="false"><h2>Meine Route</h2><span class="chev" aria-hidden="true">▾</span></button>
+    <button type="button" class="rhead" id="rtoggle" aria-expanded="false"><h2>Route prüfen</h2><span class="chev" aria-hidden="true">▾</span></button>
     <div class="rbody">
       <p class="rhint">Auto, Strassennetz Basel-Stadt. Orientierung, keine Navigation: Einbahnstrassen und Abbiegeverbote sind nicht berücksichtigt. Geprüft werden nur Behinderungen im Kanton Basel-Stadt.</p>
       <div class="rrow">
@@ -304,17 +441,6 @@ input, textarea { font-size: 16px; }
       <label class="chk"><input type="checkbox" id="ronly" checked> Nur Einträge auf meiner Route zeigen</label>
     </div>
     <div id="rres" role="status" aria-live="polite"></div>
-  </section>
-
-  <section class="bizbar" id="bizbar" aria-label="Mein Geschäft">
-    <div class="bz-main"><strong id="bzname">Mein Geschäft</strong><span id="bzinfo">Noch nicht festgelegt. Suche unten einen Ort oder setze dein Geschäft auf der Karte.</span></div>
-    <div class="bz-act">
-      <input id="bzinput" type="text" placeholder="Name, z.B. Bäckerei Muster" aria-label="Name des Geschäfts" hidden>
-      <label hidden id="bzradl">Umkreis <select id="bzrad" aria-label="Umkreis"><option value="100">100 m</option><option value="200">200 m</option><option value="300" selected>300 m</option><option value="500">500 m</option><option value="1000">1 km</option></select></label>
-      <button type="button" class="btn" id="bzpick" aria-pressed="false">Auf der Karte setzen</button>
-      <button type="button" class="btn" id="bzonly" aria-pressed="false" hidden>Nur Umkreis</button>
-      <button type="button" class="btn" id="bzdel" hidden>Entfernen</button>
-    </div>
   </section>
 
   <div class="controls">
@@ -1304,7 +1430,7 @@ input, textarea { font-size: 16px; }
     $("#bzinfo").textContent = bizPick ? "Tippe auf die Karte, wo dein Geschäft ist."
       : has ? "Umkreis " + km(biz.r || 300) + (biz.at ? " · bei " + biz.at : "") + " · gespeichert in diesem Browser"
       : "Noch nicht festgelegt. Suche unten einen Ort oder setze dein Geschäft auf der Karte.";
-    $("#bzinput").hidden = !has; $("#bzradl").hidden = !has; $("#bzonly").hidden = !has; $("#bzdel").hidden = !has;
+    $("#bzinput").hidden = !has; $("#bzradl").hidden = !has; $("#bzonly").hidden = !has; $("#bzdel").hidden = !has; $("#bzedit").hidden = !has;
     if (has) { if (document.activeElement !== $("#bzinput")) $("#bzinput").value = biz.n === "Mein Geschäft" ? "" : biz.n; $("#bzrad").value = String(biz.r || 300); }
     $("#bzpick").textContent = has ? "Verschieben" : "Auf der Karte setzen";
     $("#bzpick").setAttribute("aria-pressed", String(bizPick));
@@ -1321,6 +1447,7 @@ input, textarea { font-size: 16px; }
     if (isMobile()) setView("map");
   }
   function wireBiz() {
+    $("#bzedit").onclick = function () { var o = !$("#bizbar").classList.contains("edit"); $("#bizbar").classList.toggle("edit", o); this.setAttribute("aria-expanded", String(o)); this.textContent = o ? "Fertig" : "Ändern"; };
     $("#bzpick").onclick = function () { bizPick = !bizPick; if (bizPick) { setPick(null); if (isMobile()) setView("map"); } renderBizBar(); };
     $("#bzonly").onclick = function () { bizOnly = !bizOnly; saveBiz(); renderBizBar(); applyCore(); if (bizOnly) focusBiz(); };
     $("#bzrad").onchange = function () { if (!biz) return; biz.r = +this.value; saveBiz(); drawBiz(); renderBizBar(); applyCore(); focusBiz(); };
