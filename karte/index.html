@@ -536,6 +536,8 @@ h2 { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; }
     return e;
   }
   function fmt(iso) { if (!iso) return ""; var p = iso.split("-"); return p[2] + "." + p[1] + "." + p[0]; }
+  /* Der Kanton trägt «ohne Enddatum» als 31.12.2099 ein. */
+  function span(it) { return it.bis >= "2090" ? "ab " + fmt(it.von) + ", Ende offen" : it.von === it.bis ? fmt(it.von) : fmt(it.von) + " bis " + fmt(it.bis); }
   function todayCH() {
     try { return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Zurich" }).format(new Date()); }
     catch (e) { return new Date().toISOString().slice(0, 10); }
@@ -848,7 +850,7 @@ h2 { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; }
     var kind = el("div", { "class": "kind" }); var dot = el("span", { "class": "dot" }); dot.style.setProperty("--c", "var(--" + (it.k === "bald" ? "bau" : it.k) + ")");
     kind.appendChild(dot); kind.appendChild(document.createTextNode(KIND[it.k]));
     box.appendChild(x); box.appendChild(kind); box.appendChild(el("h2", null, it.title));
-    box.appendChild(el("p", null, it.von === it.bis ? fmt(it.von) : fmt(it.von) + " bis " + fmt(it.bis)));
+    box.appendChild(el("p", null, span(it)));
     if (it.text) box.appendChild(el("p", null, it.text));
     if (it.info) box.appendChild(el("p", null, it.info));
     if (it.status) box.appendChild(textRow("Status", [ST_TXT[it.status] || it.status]));
@@ -918,7 +920,7 @@ h2 { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; }
   function makeRow(it, lead) {
     var li = el("li"); var b = el("button", { type: "button", "class": "item", "data-i": it.i });
     b.appendChild(el("span", { "class": "t" }, it.title));
-    var meta = (it.k === "demo" || it.k === "event") ? dayLabel(it) + (it.zeit ? " · " + it.zeit + " Uhr" : "") : fmt(it.von) + " bis " + fmt(it.bis);
+    var meta = (it.k === "demo" || it.k === "event") ? dayLabel(it) + (it.zeit ? " · " + it.zeit + " Uhr" : "") : span(it);
     var ms = el("span", { "class": "m" }, (lead ? lead + " · " : "") + meta), sb = stBadge(it); if (sb) ms.appendChild(sb);
     b.appendChild(ms);
     var where = [];
@@ -932,7 +934,7 @@ h2 { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; }
   function renderList() {
     var box = $("#list"); box.textContent = "";
     if (biz && !route) {
-      var near = items.filter(function (it) { return it.show && inBiz(it); }).sort(function (a, b) { return bizDist(a) - bizDist(b); });
+      var near = items.filter(function (it) { return it.show && inBiz(it); }).sort(function (a, b) { return (a.von > b.von ? -1 : a.von < b.von ? 1 : 0) || bizDist(a) - bizDist(b); });   /* neuestes Datum zuoberst */
       var gb = el("section", { "class": "group" }), hb = el("h2"), db = el("span", { "class": "dot" }); db.style.setProperty("--c", "#4f8fcc"); hb.appendChild(db);
       hb.appendChild(document.createTextNode("Rund um «" + biz.n + "» (" + near.length + ")")); gb.appendChild(hb);
       if (!near.length) gb.appendChild(el("div", { "class": "empty" }, "Im Umkreis von " + km(biz.r || 300) + " ist mit den gewählten Filtern nichts eingetragen."));
@@ -963,7 +965,7 @@ h2 { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; }
         g.appendChild(el("div", { "class": "empty" }, l.k === "verk" ? "Heute keine Verkehrsführungen in den Daten." : l.k === "demo" ? (range === "today" ? "Heute sind keine Demonstrationen gemeldet." : "In den nächsten 7 Tagen sind keine Demonstrationen gemeldet.") : "Keine Einträge."));
       } else {
         var ul = el("ul");
-        rows.sort(function (a, b) { return (a.von < b.von ? -1 : a.von > b.von ? 1 : 0) || a.title.localeCompare(b.title, "de"); });
+        rows.sort(function (a, b) { return (a.von > b.von ? -1 : a.von < b.von ? 1 : 0) || a.title.localeCompare(b.title, "de"); });   /* neuestes Datum zuoberst */
         rows.forEach(function (it) { ul.appendChild(makeRow(it)); });
         g.appendChild(ul);
       }
